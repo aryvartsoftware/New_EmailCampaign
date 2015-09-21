@@ -42,7 +42,7 @@ namespace New_EmailCampaign
             objUserPlan = null;
             objBL_UserPlan = null;
         }
-
+        //21-9-2015
         protected void Button1_Click(object sender, EventArgs e)
         {
             InsertUserPlan();
