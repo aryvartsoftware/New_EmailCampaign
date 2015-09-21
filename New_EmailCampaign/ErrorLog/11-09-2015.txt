@@ -1,0 +1,22 @@
+9/11/2015 3:41:48 PM: UserLogin.aspx:roledetails() - Object reference not set to an instance of an object.
+
+9/11/2015 3:50:04 PM: CreateProfile.aspx:btnSubmit_Click() - Input string was not in a correct format.
+
+9/11/2015 3:52:59 PM: CreateProfile.aspx:btnSubmit_Click() - Input string was not in a correct format.
+
+9/11/2015 3:53:19 PM: CreateProfile.aspx:btnSubmit_Click() - Input string was not in a correct format.
+
+9/11/2015 3:53:38 PM: RoleDetails.aspx:btnSubmit_Click() - Thread was being aborted.
+
+9/11/2015 3:53:58 PM: CreateProfile.aspx:btnSubmit_Click() - Input string was not in a correct format.
+
+9/11/2015 5:45:52 PM: UserLogin.aspx:roledetails() - Object reference not set to an instance of an object.
+
+9/11/2015 6:05:34 PM: RoleDetails.aspx:btnSubmit_Click() - Thread was being aborted.
+
+9/11/2015 7:07:29 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - The parameter 'address' cannot be an empty string.
+Parameter name: address
+
+9/11/2015 7:35:52 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - The parameter 'address' cannot be an empty string.
+Parameter name: address
+

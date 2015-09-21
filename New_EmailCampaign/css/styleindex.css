@@ -1,0 +1,386 @@
+@font-face {
+    font-family: 'museo100';
+    src: url('../fonts/museo100regular-webfont.eot');
+    src: url('../fonts/museo100regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museo100regular-webfont.woff2') format('woff2'),
+         url('../fonts/museo100regular-webfont.woff') format('woff'),
+         url('../fonts/museo100regular-webfont.ttf') format('truetype'),
+         url('../fonts/museo100regular-webfont.svg#museo100') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'museo500';
+    src: url('../fonts/museo500-regular-webfont.eot');
+    src: url('../fonts/museo500-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museo500-regular-webfont.woff2') format('woff2'),
+         url('../fonts/museo500-regular-webfont.woff') format('woff'),
+         url('../fonts/museo500-regular-webfont.ttf') format('truetype'),
+         url('../fonts/museo500-regular-webfont.svg#museo500') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'museo700';
+    src: url('../fonts/museo700-regular-webfont.eot');
+    src: url('../fonts/museo700-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/museo700-regular-webfont.woff2') format('woff2'),
+         url('../fonts/museo700-regular-webfont.woff') format('woff'),
+         url('../fonts/museo700-regular-webfont.ttf') format('truetype'),
+         url('../fonts/museo700-regular-webfont.svg#museo700') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.header-top {
+  padding: 15px 0;
+  background-color: #F6F6F6;
+}
+.header-login {
+  text-align: right;
+  margin-top: 15px;
+}
+.header-login ul li a {
+  font-size: 12px;
+  color: #3F3F3F;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.btn {
+	color: #fff !important;
+	text-transform: uppercase;
+	border: none;
+	background: #ff040d; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #ff040d 47%, #e4070f 50%, #207cca 50%, #2989d8 50%, #e50606 50%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(47%,#ff040d), color-stop(50%,#e4070f), color-stop(50%,#207cca), color-stop(50%,#2989d8), color-stop(50%,#e50606)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* IE10+ */
+background: linear-gradient(135deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff040d', endColorstr='#e50606',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.banner-block {
+	/*background-color: ;*/
+	background:#b81319 url(../images/banner.png) no-repeat center;
+}
+.ban-mail {
+  float: right;
+}
+.ban-caption {
+  padding-top: 50px;
+  color: #fff;
+}
+.ban-caption h3 {
+	font-size: 50px;
+	font-family: 'museo100';
+	line-height: 60px;
+	padding-bottom: 20px;
+}
+.ban-caption h3 strong {
+	font-family: 'museo700';
+}
+.ban-caption p {
+	line-height: 30px;  
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+}
+.ban-caption span .btn {
+  margin-top: 30px;
+  background: #ff7b2d !important;
+  border-color: #ff7b2d !important;
+  font-weight: bold;
+}
+.faster-mail {
+	margin-bottom: 30px;
+}
+.divider-shadow {
+  background: url(../images/shadow.png) no-repeat center;
+  height: 20px;
+}
+.faster-mail h2{
+	font-size: 40px;
+	font-family: 'museo100';
+	text-align: center;
+}
+.faster-mail h2 strong {
+	font-family: 'museo700';
+}
+.faster-mail p {
+	font-size: 20px;
+	font-family: 'Lato', sans-serif;
+	text-align: center;
+}
+.email-marketing01 {
+	padding: 30px 0;
+}
+.email-list span .fa {
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  color: #FFF;
+  font-size: 40px;
+  text-align: center;
+  padding: 28px;
+ background: #ff040d; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #ff040d 47%, #e4070f 50%, #207cca 50%, #2989d8 50%, #e50606 50%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(47%,#ff040d), color-stop(50%,#e4070f), color-stop(50%,#207cca), color-stop(50%,#2989d8), color-stop(50%,#e50606)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* IE10+ */
+background: linear-gradient(160deg, #ff040d 47%,#e4070f 50%,#207cca 50%,#2989d8 50%,#e50606 50%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff040d', endColorstr='#e50606',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.email-list {
+  text-align: center;
+  padding: 25px 0;
+}
+.email-list h4 {
+	font-size: 26px;
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.email-list p {
+  font-size: 13px;
+  line-height: 22px;
+  color: #6B6B6B;
+}
+.email-marketing02 {
+	background: url(../images/bg.png) repeat center;
+}
+.newsletter01.email-list {
+  text-align: left;
+}
+.newsletter01 p{
+  line-height: 29px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.call-us {
+	padding: 40px 0;
+}
+.question span .fa {
+  font-size: 25px;
+  background: url(../images/chat.png) no-repeat center;
+  width: 54px;
+  height: 55px;
+  color: #FFF;
+  text-align: center;
+  padding: 13px;
+  margin-bottom: -1px;
+}
+.live-chat {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.ques h3 {
+	font-size: 19px;
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	padding-bottom: 10px;
+	margin: 0;
+}
+.ques p {
+	  font-size: 13px;
+  line-height: 22px;
+  color: #6B6B6B;
+  font-family: 'Lato', sans-serif;
+}
+.ques h5{
+	font-size: 20px;
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	color: #FF020B;
+	padding-top: 15px;
+}
+.question span img {
+  padding-left: 10px;
+}
+.footer-block {
+  padding: 30px 0;
+  background: url(../images/footer.png) repeat;
+  border-top: 5px solid #e0e0e0;
+}
+.footer-term h4{
+	font-size: 16px;
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+}
+.footer-term ul li a {
+  color: #6C6C6C;
+  text-decoration: none;
+  line-height: 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+.footer-bottom {
+	background-color: #e6e6e6;
+	padding: 5px 0;
+}
+.footer-bottom ul li .fa{
+	font-size: 26px;
+	color: #4a4a4a;
+	text-decoration: none;
+}
+.bottom-blk {
+  margin-top: 17px;
+}
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+.animated.hinge {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}
+
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  40% {
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+
+  60% {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  40% {
+    -webkit-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+
+  60% {
+    -webkit-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+}
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+    -ms-transform: scale(.3);
+    transform: scale(.3);
+  }
+
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+
+  70% {
+    -webkit-transform: scale(.9);
+    -ms-transform: scale(.9);
+    transform: scale(.9);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.bounceIn {
+  -webkit-animation-name: bounceIn;
+  animation-name: bounceIn;
+}
+
+
+/* Media Query */
+@media (min-width: 320px) and (max-width: 480px) {
+.question span img{
+	display: none;
+}
+.header-login {
+	display: table;
+  margin: 0 auto;
+}
+.ban-mail {
+	float: none;
+}
+.logo img {
+  display: table;
+  margin: 0 auto;
+}
+.banner-block {
+  background-color: #b81319;
+}
+.ban-caption {
+  padding-top: 0;
+  }
+  .ban-caption h3{
+    font-size: 28px;
+line-height: 34px;
+padding-bottom: 0px;
+  }
+  .ban-caption p {
+    line-height: 21px;
+    font-size: 15px;
+  }
+  .ban-caption span .btn {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  .faster-mail h2 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+.ban-caption h3 {
+	font-size: 38px;
+}
+.ban-caption p {
+	font-size: 16px;
+}
+.email-list h4 {
+	font-size: 22px;
+}
+}
+
+@media (min-width: 320px) and (max-width: 1199px) {
+.banner-block {
+  background-color: #b81319 !important;
+  background: none;
+}
+}
+/* Media Query */

@@ -1,0 +1,14 @@
+9/18/2015 10:45:59 AM: RoleDetails.aspx:btnSubmit_Click() - Thread was being aborted.
+
+9/18/2015 10:52:04 AM: CampaignReportList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/18/2015 10:52:10 AM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/18/2015 10:52:37 AM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/18/2015 11:08:30 AM: UserLogin.aspx:roledetails() - Object reference not set to an instance of an object.
+
+9/18/2015 11:10:23 AM: RoleDetails.aspx:btnSubmit_Click() - Thread was being aborted.
+
+9/18/2015 3:01:07 PM: ContactsView.aspx:BindGrid() - Object reference not set to an instance of an object.
+

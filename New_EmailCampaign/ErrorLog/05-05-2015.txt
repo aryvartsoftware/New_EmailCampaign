@@ -1,0 +1,8 @@
+5/5/2015 3:19:07 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+5/5/2015 5:21:24 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+5/5/2015 5:31:47 PM: AddContacts.aspx:BindSecurityData() - String was not recognized as a valid DateTime.
+
+5/5/2015 6:41:59 PM: AddContacts.aspx:BindSecurityData() - String was not recognized as a valid DateTime.
+

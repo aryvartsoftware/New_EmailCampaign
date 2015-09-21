@@ -1,0 +1,12 @@
+4/30/2015 5:06:04 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+
+4/30/2015 5:11:25 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/30/2015 5:13:30 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/30/2015 8:29:14 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - The connection was not closed. The connection's current state is open.
+
+4/30/2015 8:46:22 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/30/2015 9:20:30 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - A transport-level error has occurred when sending the request to the server. (provider: Shared Memory Provider, error: 0 - No process is on the other end of the pipe.)
+

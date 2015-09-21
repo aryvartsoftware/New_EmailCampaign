@@ -1,0 +1,14 @@
+4/29/2015 2:32:57 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+4/29/2015 5:14:01 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+4/29/2015 5:20:21 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+4/29/2015 5:22:06 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+4/29/2015 5:22:31 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+4/29/2015 5:29:49 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+4/29/2015 5:32:48 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+

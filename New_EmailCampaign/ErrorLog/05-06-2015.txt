@@ -1,0 +1,4 @@
+6/5/2015 3:58:53 PM: MassUpdate.aspx:btngridsubmit_Click() - Object reference not set to an instance of an object.
+
+6/5/2015 9:04:30 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+

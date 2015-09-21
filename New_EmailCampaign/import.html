@@ -1,0 +1,114 @@
+﻿<html>
+<head runat="server">
+  <title>Email Campaign</title>
+  <!-- start css -->
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- end css -->
+
+  <!-- start js -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jqueryv11.2.js"></script>
+  <script src="js/bootstrap.min.js"></script> 
+<!-- end css -->
+</head>
+
+<body>
+    <form id="form1" runat="server" >
+        <asp:ScriptManager EnablePartialRendering="true"
+ ID="ScriptManager1" runat="server"></asp:ScriptManager>
+     <div class="container-fluid">
+    <div class="row">
+      <div class="container">
+        <div class="row">
+          <!-- Fixed navbar -->
+          <div class="main-menu"> <!-- start menu section -->
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Menus</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Describe</a></li>
+                    <li><a href="#about">List</a></li>
+                    <li><a href="#contact">Editor</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Help</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Save and Exit <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Campaigns</a></li>
+                        <li><a href="#">Lists</a></li>
+                        <li><a href="#">Reports</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Log Out </a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+              </div>
+            </nav>
+          </div> <!-- end menu section -->          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- start content section -->
+  <div class="container-fluid bg">
+    <div class="row">
+      <div class="container new_campaign">
+        <div class="row">
+          <h1>Add Recipients</h1>
+          
+          <div class="col-md-12  new_bg"> <!-- start campaign section -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="import-list">
+                    <div class="import">
+                      <span class="glyphicon glyphicon-info-sign"></span>
+                      <h3>Import Disclaimer</h3>
+                      <p>We'll automatically clean duplicate instances of email addresses from the list. Importing does not send any confirmation emails to your list, because we trust you've already received permission. Make sure everyone on your list actually signed up for it and granted you permission to email them</p>
+                      <img src="images/excel.jpg" class="img-responsive">                  
+                    </div>                    
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="campaign import-file">            
+                    <h3>Import file</h3>
+                    <div class="form-group">
+                      <label for="exampleInputName3">Upload a file</label>
+                     <span></span><input class="form-control" type="file" id="FileUpload1" name="FileUpload1" runat="server" accept=".jpg,.png,.jpeg,.gif" >
+                      <asp:FileUpload ID="FileUpload1" runat="server" Font-Size="Small" />
+                      <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" />  <p>Acceptable file types: xlsx <label for="exampleInputName3">Invaild</label></p>  
+                    </div>
+                      
+                    
+                    <div class="form-group form-btn">                      
+                        <input  class="btn btn-primary btn-sm mar-right15" type="Submit" value="Upload list"  />
+                        <span><a href="#">Cancel</a></span>
+                    </div>                  
+                </div>
+              </div> 
+              
+            </div>
+          </div> <!-- start campaign section -->
+          
+        </div>
+      </div> 
+      
+    </div>
+  </div>
+      <!-- start content section -->  
+    </form>
+</body>
+</html>

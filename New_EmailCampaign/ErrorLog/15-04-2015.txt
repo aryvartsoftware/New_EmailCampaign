@@ -1,0 +1,28 @@
+4/15/2015 3:56:46 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Object reference not set to an instance of an object.
+
+4/15/2015 3:57:01 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Object reference not set to an instance of an object.
+
+4/15/2015 3:57:03 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Object reference not set to an instance of an object.
+
+4/15/2015 4:09:25 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Object reference not set to an instance of an object.
+
+4/15/2015 4:16:00 PM: ImportReciepientsList.aspx:Page_Load() - Object reference not set to an instance of an object.
+
+4/15/2015 4:29:10 PM: ImportReciepientsList.aspx:Page_Load() - Object reference not set to an instance of an object.
+
+4/15/2015 4:29:10 PM: ImportReciepientsList.aspx:Page_Load() - Object reference not set to an instance of an object.
+
+4/15/2015 4:39:02 PM: ImportReciepientsList.aspx:Page_Load() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/15/2015 5:15:14 PM: ImportReciepientsList.aspx:Page_Load() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/15/2015 6:42:01 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Object reference not set to an instance of an object.
+
+4/15/2015 6:48:58 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/15/2015 7:01:26 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/15/2015 7:03:49 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/15/2015 7:10:47 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+

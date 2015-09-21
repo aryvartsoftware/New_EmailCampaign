@@ -1,0 +1,6 @@
+5/20/2015 9:02:14 PM: ContactsView.aspx:BindGrid() - Invalid column name 'CampaignName'.
+
+5/20/2015 9:12:07 PM: ContactsView.aspx:btndelete_Click() - Object reference not set to an instance of an object.
+
+5/20/2015 9:14:37 PM: ContactsView.aspx:BindGrid() - Object reference not set to an instance of an object.
+

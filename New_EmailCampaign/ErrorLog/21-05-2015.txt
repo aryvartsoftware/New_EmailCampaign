@@ -1,0 +1,10 @@
+5/21/2015 7:54:19 PM: ContactsView.aspx:Button1_Click() - Incorrect syntax near 'andCOALESCE'.
+
+5/21/2015 9:10:24 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+
+5/21/2015 9:10:26 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+
+5/21/2015 9:10:27 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+
+5/21/2015 9:10:27 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+

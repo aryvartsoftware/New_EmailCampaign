@@ -1,0 +1,8 @@
+5/19/2015 1:44:31 PM: CreateCampaignList.aspx:btndelete_Click() - Object reference not set to an instance of an object.
+
+5/19/2015 2:42:45 PM: CreateCampaignList.aspx:btndelete_Click() - Object reference not set to an instance of an object.
+
+5/19/2015 2:50:41 PM: CreateCampaignList.aspx:btndelete_Click() - Object reference not set to an instance of an object.
+
+5/19/2015 2:51:48 PM: CreateCampaignList.aspx:btndelete_Click() - Object reference not set to an instance of an object.
+

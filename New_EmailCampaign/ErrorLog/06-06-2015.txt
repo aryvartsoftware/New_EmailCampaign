@@ -1,0 +1,2 @@
+6/6/2015 12:24:24 PM: CreateCampign.aspx:Button1_Click() - String was not recognized as a valid DateTime.
+

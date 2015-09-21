@@ -1,0 +1,6 @@
+6/24/2015 4:20:06 PM: RoleSettings.aspx:BindRole() - Object reference not set to an instance of an object.
+
+6/24/2015 5:33:51 PM: RoleSettings.aspx:BindRole() - Object reference not set to an instance of an object.
+
+6/24/2015 9:23:05 PM: UserLogin.aspx:roledetails() - Object reference not set to an instance of an object.
+

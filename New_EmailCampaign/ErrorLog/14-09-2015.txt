@@ -1,0 +1,49 @@
+9/14/2015 12:09:53 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+9/14/2015 12:35:01 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - The parameter 'address' cannot be an empty string.
+Parameter name: address
+
+9/14/2015 12:38:59 PM: UserLogin.aspx:roledetails() - Object reference not set to an instance of an object.
+
+9/14/2015 3:09:27 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - The parameter 'address' cannot be an empty string.
+Parameter name: address
+
+9/14/2015 3:33:33 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - The parameter 'address' cannot be an empty string.
+Parameter name: address
+
+9/14/2015 4:15:58 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - Failure sending mail.
+
+9/14/2015 4:20:07 PM: UserLogin.aspx:roledetails() - Object reference not set to an instance of an object.
+
+9/14/2015 5:26:50 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:03 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:06 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:08 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:08 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:10 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:20 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:25 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:27 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:28 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:30 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:35 PM: CreateCampaignList.aspx:Button1_Click() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:40 PM: ContactsView.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:41 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:27:56 PM: CreateCampaignList.aspx:BindGrid() - Object reference not set to an instance of an object.
+
+9/14/2015 5:37:20 PM: UserLogin.aspx:roledetails() - Object reference not set to an instance of an object.
+

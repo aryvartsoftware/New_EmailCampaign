@@ -1,0 +1,14 @@
+5/23/2015 12:35:00 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+5/23/2015 1:42:37 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Incorrect syntax near ','.
+
+5/23/2015 1:49:29 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - The select list for the INSERT statement contains more items than the insert list. The number of SELECT values must match the number of INSERT columns.
+
+5/23/2015 1:51:25 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - The select list for the INSERT statement contains more items than the insert list. The number of SELECT values must match the number of INSERT columns.
+
+5/23/2015 1:53:40 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - The select list for the INSERT statement contains more items than the insert list. The number of SELECT values must match the number of INSERT columns.
+
+5/23/2015 1:56:45 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - The select list for the INSERT statement contains more items than the insert list. The number of SELECT values must match the number of INSERT columns.
+
+5/23/2015 2:01:11 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - The select list for the INSERT statement contains more items than the insert list. The number of SELECT values must match the number of INSERT columns.
+

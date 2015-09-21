@@ -1,0 +1,12 @@
+4/25/2015 3:16:40 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Could not find file 'E:\Project\New_EmailCampaign\New_EmailCampaign\New_EmailCampaign\ExcelEmptyTemplate\ExcelTemplate'.
+
+4/25/2015 3:17:39 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Could not find file 'E:\Project\New_EmailCampaign\New_EmailCampaign\New_EmailCampaign\ExcelEmptyTemplate\ExcelTemplate'.
+
+4/25/2015 3:28:35 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+
+4/25/2015 4:41:50 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/25/2015 7:11:05 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+
+4/25/2015 8:05:50 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+

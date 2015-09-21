@@ -1,0 +1,10 @@
+4/28/2015 6:39:06 PM: AddContacts.aspx:gvAddContacts_RowCommand() - Unable to cast object of type 'System.Web.UI.HtmlControls.HtmlInputText' to type 'System.Web.UI.HtmlControls.HtmlTextArea'.
+
+4/28/2015 6:44:47 PM: AddContacts.aspx:BindSecurityData() - Object reference not set to an instance of an object.
+
+4/28/2015 6:47:24 PM: AddContacts.aspx:gvAddContacts_RowCommand() - Input string was not in a correct format.
+
+4/28/2015 9:04:27 PM: AddContacts.aspx:BindSecurityData() - Input string was not in a correct format.
+
+4/28/2015 9:10:16 PM: AddContacts.aspx:BindSecurityData() - Input string was not in a correct format.
+

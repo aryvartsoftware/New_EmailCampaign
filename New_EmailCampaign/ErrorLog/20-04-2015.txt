@@ -1,0 +1,20 @@
+4/20/2015 9:39:58 PM: UserLogin.aspx:btnSubmit_Click() - A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+4/20/2015 9:47:08 PM: UserLogin.aspx:btnSubmit_Click() - A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+4/20/2015 9:49:03 PM: UserLogin.aspx:btnSubmit_Click() - A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+4/20/2015 10:10:09 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Cannot initialize the data source object of OLE DB provider "Microsoft.ACE.OLEDB.12.0" for linked server "(null)".
+
+4/20/2015 10:34:37 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Could not find file 'E:\Project\New_EmailCampaign\New_EmailCampaign\New_EmailCampaign\ExcelEmptyTemplate\ExcelTemplate'.
+
+4/20/2015 10:35:00 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Could not find file 'E:\Project\New_EmailCampaign\New_EmailCampaign\New_EmailCampaign\ExcelEmptyTemplate\ExcelTemplate'.
+
+4/20/2015 10:38:05 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+
+4/20/2015 10:38:22 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+
+4/20/2015 10:42:58 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+
+4/20/2015 10:47:47 PM: ImportReciepientsList.aspx:ReadDataFromExcelToDB() - Thread was being aborted.
+

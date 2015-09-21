@@ -1,0 +1,16 @@
+5/28/2015 4:02:39 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - Failure sending mail.
+
+5/28/2015 4:05:20 PM: CreateCampign.aspx:btngridsubmit_Click() - Input string was not in a correct format.
+
+5/28/2015 4:06:19 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - Failure sending mail.
+
+5/28/2015 4:15:30 PM: App_Code/MailTemplate.cs:fnSendMailToClientForCoUpld() - Failure sending mail.
+
+5/28/2015 7:15:20 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+
+5/28/2015 7:15:22 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+
+5/28/2015 7:15:23 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+
+5/28/2015 7:22:34 PM: ContactsAdd.aspx:btnSubmit_Click() - String was not recognized as a valid DateTime.
+
