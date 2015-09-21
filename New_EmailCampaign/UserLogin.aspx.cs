@@ -20,7 +20,7 @@ namespace New_EmailCampaign
         BL_PlanType objBL_PlanType = new BL_PlanType();
         List<Userplantype> lstUserplantype = new List<Userplantype>();
 
-
+        //(21-9-2015)
 
         New_EmailCampaign.App_Code.CryptographicHashCode objCryptographicHashCode = new New_EmailCampaign.App_Code.CryptographicHashCode();
 
