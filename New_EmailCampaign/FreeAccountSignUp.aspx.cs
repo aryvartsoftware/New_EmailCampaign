@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DataAccessLayer.App_Code;
 using BALayer;
+using System.Data;
 using System.Web.UI;
 
 namespace New_EmailCampaign
@@ -13,9 +14,13 @@ namespace New_EmailCampaign
         BL_UserLoginDetails objBL_UserLoginDetails = new BL_UserLoginDetails();
         List<UserDetails> lstUserDetails = new List<UserDetails>();
 
+       
+
         Company objCompany = new Company();
         BL_CompanyDetails objBL_CompanyDetails = new BL_CompanyDetails();
         List<Company> lstCompany = new List<Company>();
+
+        BL_Common objBL_Common = new BL_Common();
 
         MailTemplate objMailTemplate = new MailTemplate();
         New_EmailCampaign.App_Code.CryptographicHashCode objCryptographicHashCode = new New_EmailCampaign.App_Code.CryptographicHashCode();
@@ -23,11 +28,9 @@ namespace New_EmailCampaign
         {
             if (!IsPostBack)
             {
-                
+
             }
         }
-
-
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -54,6 +57,7 @@ namespace New_EmailCampaign
                     objUserDetails.UserPassword = txtPassword.Value.ToString().Trim();
                     objUserDetails.Email_id = txtEmail.Value.ToString().Trim();
                     objUserDetails.ContactNo = txtContactNumber.Value.ToString().Trim();
+                    objUserDetails.IsActive = true;
                     objUserDetails.CreatedOn = DateTime.Now;
                     objUserDetails.MemberSince = DateTime.Now;
                     objUserDetails.AccountActivated = false;
@@ -65,6 +69,8 @@ namespace New_EmailCampaign
 
                     objUserDetails.UserType = 1;
                     objBL_UserLoginDetails.AccessInsertUserLogin(objUserDetails);
+                    int loginid = objBL_UserLoginDetails.ReturnUserLoginMaxID();
+                   
                     //------Sending confirmtion Email of account created to client.-----
                     string sEmailId = "sakthivel@aryvart.com";
                     //subject
@@ -72,9 +78,9 @@ namespace New_EmailCampaign
 
                     ////sending emails to client
                     string strReceiverName = "ADMIN";
-                    string EncryptQry = "id=" + objCryptographicHashCode.EncryptPlainTextToCipherText(objBL_UserLoginDetails.ReturnUserLoginMaxID().ToString()) + "'";
+                    string EncryptQry = "id=" + objCryptographicHashCode.EncryptPlainTextToCipherText(loginid.ToString()) + "'";
                     //string EncryptQry = "id=" + objBL_UserLoginDetails.ReturnUserLoginMaxID().ToString() + "'";
-                   
+
                     //string strDetails = "<table border='1' cellspacing='0' cellpadding='0'><tr><td width='152' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;File Name:</span></td><td width='200' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;" + sFileName + ".</span></td></tr><tr><td width='152' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;Uploaded on:</span></td><td width='200' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;" + DateTime.Now.ToString() + "." + "</span></td></tr></table>";
                     //string body = MailTemplate.MailCoUpldHTML(MailTemplate.GetEmailTemplate("CoUpldEmail.html").Replace("<CompanyName>", sCompanyName).Replace("<Details>", strDetails).Replace("<ReceiverName>", strReceiverName).Replace("<ClientName>", sClientName));
                     //objMailTemplate.fnSendMailToClientForCoUpld(body, "sakthivel@aryvart.com", sSubject, sEmailId);
@@ -96,5 +102,7 @@ namespace New_EmailCampaign
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("FreeAccountSignUp.aspx:btnSubmit_Click() - " + ex.Message);
             }
         }
+
+        
     }
 }

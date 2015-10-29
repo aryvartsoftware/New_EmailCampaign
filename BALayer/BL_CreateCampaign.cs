@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using DataAccessLayer;
 using DataAccessLayer.App_Code;
+using System.Data;
+using System;
+
 
 namespace BALayer
 {
@@ -25,16 +28,34 @@ namespace BALayer
             objDL_CreateCampaign.CampaignDelete(Campaignid);
         }
 
-        public List<Campaign> SelectCampaignListforgrid(string uertype, int companyid)
+        public DataSet SelectCampaignListforgrid(string uertype, Nullable<int> companyid, Nullable<int> Userid, string alpha)
         {
-            return objDL_CreateCampaign.CampaignSelectforgrid(uertype, companyid);
+            return objDL_CreateCampaign.CampaignSelectforgrid(uertype, companyid, Userid, alpha);
+        }
+
+        public DataSet SelectCampaignListforgridBasedonfilter(string uertype, int companyid, string CampName, string Title, Nullable<DateTime> CreatedOn, string all, string fromname)
+        {
+            return objDL_CreateCampaign.CampaignSelectforgridBasedonFilter(uertype, companyid, CampName, Title, CreatedOn, all, fromname);
+        }
+
+        public DataSet SelectCampaignreportListforgrid(string uertype, int Userid, string alpha)
+        {
+            return objDL_CreateCampaign.CampaignReportSelectforgrid(uertype, Userid, alpha);
+        }
+
+        public DataSet SelectCampaignreportListforgridBasedonfilter(string uertype, int companyid, string CampName, string Title, Nullable<DateTime> CreatedOn, string all)
+        {
+            return objDL_CreateCampaign.CampaignReportSelectforgridBasedonFilter(uertype, companyid, CampName, Title, CreatedOn, all);
         }
 
         public List<Campaign> SelectCampaignListbasedonid(int campid)
         {
             return objDL_CreateCampaign.CampaignSelectbasedonid(campid);
         }
-
+        public List<Campaign> SelectCampaignBindDashboard(int CompanyID)
+        {
+            return objDL_CreateCampaign.CampaignBindDashboard(CompanyID);
+        }
       
     }
 }

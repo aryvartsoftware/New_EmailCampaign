@@ -1,11 +1,8 @@
-﻿using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using System.Web.UI.WebControls;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections;
-using System.Web.UI.HtmlControls;
 using System.Collections.Generic;
 using DataAccessLayer.App_Code;
 using BALayer;
@@ -111,13 +108,11 @@ namespace New_EmailCampaign
                 else if (!IsPostBack)
                 {
                     selectid = string.Empty;
-                    //BindAddContactsControl();
                     ViewState["CurrentAlphabet"] = "ALL";
                     this.GenerateAlphabets();
                     this.BindGrid();
                 }
                 ViewState["CheckBoxArray"] = CheckBoxArray;
-                //BindAddContactsControl();
 
             }
             catch (Exception ex)
@@ -125,63 +120,28 @@ namespace New_EmailCampaign
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("AddContacts.aspx:BindSecurityData() - " + ex.Message);
             }
         }
-
-
-        //private void BindAddContactsControl()
-        //{
-        //    try
-        //    {
-        //        objUserContacts = new UserContacts();
-        //        lstUserContacts = new List<UserContacts>();
-        //        objBL_UserContacts = new BL_UserContacts();
-        //        lstUserContacts = objBL_UserContacts.SelectUserContactsListforid(Convert.ToInt32(Session["CompanyID"].ToString()));
-        //        gvAddContacts.DataSource = lstUserContacts;
-        //        gvAddContacts.DataBind();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        New_EmailCampaign.App_Code.GlobalFunction.StoreLog("AddContacts.aspx:BindSecurityData() - " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        lstUserContacts = null;
-        //        objBL_UserContacts = null;
-        //        objUserContacts = null;
-        //    }
-        //}
-             
-
-        private void gridcheckall()
-        {
-            
-        }
-
         private void BindGrid()
         {
             try
             {
-                string qrycmd = string.Empty;
-                using (SqlConnection con = new SqlConnection(strConnString))
-                {
-                    qrycmd = "SELECT a.* from EC_UserContacts a inner join dbo.EC_UserLogin b on a.FK_UserID = b.PK_UserID where (a.ContactName LIKE @Alphabet + '%' OR @Alphabet = 'ALL') and b.FK_CompanyID =" + Convert.ToInt32(Session["CompanyID"].ToString()) + "";
+                DataSet dt = new DataSet();
+                dt = objBL_UserContacts.SelectUserContactsListforid(Convert.ToInt32(Session["CompanyID"].ToString()), ViewState["CurrentAlphabet"].ToString());
+                SetViewState(dt);
 
-                    using (SqlCommand cmd = new SqlCommand(qrycmd))
-                    {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
-                        {
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@Alphabet", ViewState["CurrentAlphabet"]);
-                            sda.SelectCommand = cmd;
-                            using (DataSet dt = new DataSet())
-                            {
-                                sda.Fill(dt);
-                                SetViewState(dt);
-                                gvAddContacts.DataSource = GetViewState();
-                                gvAddContacts.DataBind();
-                            }
-                        }
-                    }
+                if (dt.Tables[0].Rows.Count <= 0)
+                {
+                    gvAddContacts.DataSource = GetViewState();
+                    gvAddContacts.DataBind();
                 }
+                else
+                {
+                    gvAddContacts.DataSource = GetViewState();
+                    gvAddContacts.DataBind();
+                    sortImage.ImageUrl = "~/images/view_sort_descending.png";
+                    gvAddContacts.HeaderRow.Cells[2].Controls.Add(sortImage);
+                    ViewState["SortDirection"] = "DESC";
+                }                
+
             }
             catch (Exception ex)
             {
@@ -191,12 +151,10 @@ namespace New_EmailCampaign
 
         private DataSet GetViewState()
         {
-            //Gets the ViewState
             return (DataSet)ViewState["myDataSet"];
         }
         private void SetViewState(DataSet myDataSet)
         {
-            //Sets the ViewState
             ViewState["myDataSet"] = myDataSet;
         }
 
@@ -281,7 +239,6 @@ namespace New_EmailCampaign
                                 {
                                     if (!selectid.Contains(lblEmpID.Text.ToString()))
                                         selectid = selectid + "," + lblEmpID.Text;
-                                    //gvAddContacts.Rows[i].Attributes.Add("style", "background-color:aqua");
                                 }
 
                             }
@@ -302,7 +259,6 @@ namespace New_EmailCampaign
                                     else
                                         if (!selectid.Contains(lblEmpID.Text.ToString()))
                                             selectid = selectid + "," + lblEmpID.Text;
-                                    //gvAddContacts.Rows[i].Attributes.Add("style", "background-color:aqua");
                                 }
                             }
                         }
@@ -338,7 +294,6 @@ namespace New_EmailCampaign
         {
             try
             {
-                ////Custom Paging
                 GridViewRow gvAddContactsRow = gvAddContacts.BottomPagerRow;
 
                 if (gvAddContactsRow == null) return;
@@ -346,24 +301,18 @@ namespace New_EmailCampaign
                 DropDownList ddCurrentPage = (DropDownList)gvAddContacts.BottomPagerRow.FindControl("ddpagesize");
                 Label lblPageCount = (Label)gvAddContactsRow.Cells[0].FindControl("lblPageCount");
                 Label label1 = (Label)gvAddContactsRow.Cells[0].FindControl("Label1");
-
-
-
+                
                 if (gvAddContacts.Rows.Count > 0)
                 {
                     DropDownList ddPagesize = gvAddContacts.BottomPagerRow.FindControl("ddPageSize") as DropDownList;
 
-                    if (ViewState["PageSize"] != null)
-                    {
+                    if (ViewState["PageSize"] != null)                    
                         ddPagesize.Items.FindByText((ViewState["PageSize"].ToString())).Selected = true;
-                    }
+                   
 
                     if (lblPageCount != null)
-                    {
                         lblPageCount.Text = "<b>Page - </b>" + (gvAddContacts.PageIndex + 1) + " of " + gvAddContacts.PageCount.ToString();
-                    }
-
-
+                   
                 }
 
             }
@@ -439,8 +388,6 @@ namespace New_EmailCampaign
                 DataSet myDataSet = GetViewState();
                 DataTable myDataTable = myDataSet.Tables[0];
                 GridViewSortExpression = e.SortExpression;
-
-                //Gets the Pageindex of the GridView.
                 int iPageIndex = gvAddContacts.PageIndex;
                 gvAddContacts.DataSource = SortDataTable(myDataTable, false);
                 gvAddContacts.DataBind();
@@ -461,8 +408,7 @@ namespace New_EmailCampaign
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("AddContacts.aspx:gvAddContacts_Sorting() - " + ex.Message);
             }
         }
-
-        //Gets or Sets the GridView SortDirection Property
+        
         private string GridViewSortDirection
         {
             get
@@ -474,7 +420,6 @@ namespace New_EmailCampaign
                 ViewState["SortDirection"] = value;
             }
         }
-        //Gets or Sets the GridView SortExpression Property
         private string GridViewSortExpression
         {
             get
@@ -486,8 +431,7 @@ namespace New_EmailCampaign
                 ViewState["SortExpression"] = value;
             }
         }
-
-        //Toggles between the Direction of the Sorting
+                
         private string GetSortDirection()
         {
             switch (GridViewSortDirection)
@@ -503,8 +447,7 @@ namespace New_EmailCampaign
             }
             return GridViewSortDirection;
         }
-
-        //Sorts the ResultSet based on the SortExpression and the Selected Column.
+                
         protected DataView SortDataTable(DataTable myDataTable, bool isPageIndexChanging)
         {
             if (myDataTable != null)
@@ -526,17 +469,14 @@ namespace New_EmailCampaign
                 return myDataView;
             }
             else
-            {
-
-                return new DataView();
-            }
+             return new DataView();
+           
         }
 
         protected void Paginate(object sender, CommandEventArgs e)
         {
             try
-            {
-                // Get the Current Page Selected
+            {                
                 int iCurrentIndex = gvAddContacts.PageIndex;
 
                 switch (e.CommandArgument.ToString().ToLower())
@@ -557,8 +497,7 @@ namespace New_EmailCampaign
                         gvAddContacts.PageIndex = gvAddContacts.PageCount;
                         break;
                 }
-
-                //Populate the GridView Control
+                
                 DataSet myDataSet = GetViewState();
                 DataTable myDataTable = myDataSet.Tables[0];
 
@@ -595,7 +534,6 @@ namespace New_EmailCampaign
                                 {
                                     if (!selectid.Contains(lblEmpID.Text.ToString()))
                                         selectid = selectid + "," + lblEmpID.Text;
-                                    //gvAddContacts.Rows[i].Attributes.Add("style", "background-color:aqua");
                                 }
 
                             }
@@ -616,7 +554,6 @@ namespace New_EmailCampaign
                                     else
                                         if (!selectid.Contains(lblEmpID.Text.ToString()))
                                             selectid = selectid + "," + lblEmpID.Text;
-                                    //gvAddContacts.Rows[i].Attributes.Add("style", "background-color:aqua");
                                 }
                             }
                         }
@@ -627,9 +564,7 @@ namespace New_EmailCampaign
             {
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("AddContacts.aspx:Paginate() - " + ex.Message);
             }
-        }
-
-        //Images for |<, <<, >>, and >|
+        }        
         protected void imgPageFirst_Command(object sender, CommandEventArgs e)
         {
             Paginate(sender, e);
@@ -673,30 +608,24 @@ namespace New_EmailCampaign
         {
             try
             {
-                string qrycmd = string.Empty;
-                using (SqlConnection con = new SqlConnection(strConnString))
-                {
-                    string filter = string.Empty;
-                    //qrycmd = "SELECT * from EC_Campaign where (CampaignName LIKE @Alphabet + '%' OR @Alphabet = 'ALL') and FK_UserID = " + Convert.ToInt32(Session["UserID"].ToString()) + " and  CampaignName like '%" + txtCampName.Value.Trim() + "%' and Title like '%" + txtTitle.Value.Trim() + "%' and FromName like '%" + txtStatus.Value.Trim() + "%'";
-                    qrycmd = "SELECT a.* from EC_UserContacts a inner join dbo.EC_UserLogin b on a.FK_UserID = b.PK_UserID where (a.ContactName LIKE @Alphabet + '%' OR @Alphabet = 'ALL') and b.FK_CompanyID =" + Convert.ToInt32(Session["CompanyID"].ToString()) + " and a.ContactName like '%" + txtCampName.Value.Trim() + "%' and COALESCE(a.Designation,'') like '%" + txtTitle.Value.Trim() + "%' and COALESCE(a.ContactNo,'') like '%" + txtStatus.Value.Trim() + "%' and COALESCE(a.city1,'') like '%" + txtcity.Value.Trim() + "%' and COALESCE( a.state1,'') like '%" + txtState.Value.Trim() + "%' and COALESCE(a.country1,'') like '%" + txtCountry.Value.Trim() + "%' and COALESCE(a.email_id,'') like '%" + txtemail.Value.Trim() + "%'";
+                DataSet dt = new DataSet();
+                dt = objBL_UserContacts.SelectUserContactsListforidforFilter(txtCampName.Value.Trim(), txtTitle.Value.Trim(), txtcity.Value.Trim(), txtState.Value.Trim(), txtCountry.Value.Trim(), txtemail.Value.Trim(), txtStatus.Value.Trim(), Convert.ToInt32(Session["CompanyID"].ToString()), ViewState["CurrentAlphabet"].ToString());
+                SetViewState(dt);
 
-                    using (SqlCommand cmd = new SqlCommand(qrycmd))
-                    {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
-                        {
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@Alphabet", ViewState["CurrentAlphabet"]);
-                            sda.SelectCommand = cmd;
-                            using (DataSet dt = new DataSet())
-                            {
-                                sda.Fill(dt);
-                                SetViewState(dt);
-                                gvAddContacts.DataSource = GetViewState();
-                                gvAddContacts.DataBind();
-                            }
-                        }
-                    }
+                if (dt.Tables[0].Rows.Count <= 0)
+                {
+                    gvAddContacts.DataSource = GetViewState();
+                    gvAddContacts.DataBind();
                 }
+                else
+                {
+                    gvAddContacts.DataSource = GetViewState();
+                    gvAddContacts.DataBind();
+                    sortImage.ImageUrl = "~/images/view_sort_descending.png";
+                    gvAddContacts.HeaderRow.Cells[6].Controls.Add(sortImage);
+                    ViewState["SortDirection"] = "DESC";
+                }
+               
                 collapseExample.Attributes["class"] = "collapse in";
             }
             catch (Exception ex)

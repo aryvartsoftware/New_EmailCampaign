@@ -2,11 +2,13 @@
 <%@ Page  Language="C#" AutoEventWireup="true" CodeBehind="AddContacts.aspx.cs" Inherits="New_EmailCampaign.AddContacts" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
         <title>Email Campaign</title>
+
     <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
      <link href="css/stylesheet.css" rel="stylesheet" />
@@ -16,57 +18,25 @@
     <script src="js/jqueryv11.2.js"></script> 
    <script src="js/bootstrap-datetimepicker.min.js"></script> 
   <script src="js/jquery.colorbox.js"></script> 
-     <script src="js/bootstrap.min.js"></script>
-
-     
+     <script src="js/bootstrap.min.js"></script>   
 
     <script type="text/javascript">
 
-        //Grid view sorting-----------------------strart(6-5-2015)
-        //$(document).ready(function () {
-        //    $("th").click(function () {
-        //        var columnIndex = $(this).index();
-        //        var tdArray = $(this).closest("table").find("tr td:nth-child(" + (columnIndex + 1) + ")");
-        //        tdArray.sort(function (p, n) {
-        //            var pData = $(p).text();
-        //            var nData = $(n).text();
-        //            return pData < nData ? -1 : 1;
-        //        });
-        //        tdArray.each(function () {
-        //            var row = $(this).parent();
-        //            $("#gvAddContacts").append(row);
-        //        });
-        //    });
-        //})
-        //Grid view sorting-----------------------End
-
         $(function () {
-            // Bootstrap DateTimePicker v3
             $('#datetimepicker1,#datetimepicker2').datetimepicker({
                 pickTime: false
             });
         });
 
-        //$(document).ready(function () {
-        //    $(".iframe").colorbox({ iframe: true, width: "60%", height: "70%" });
-        //});
-
-        //Grid view check all clicked all check box in grid will be checked
+       
         function Check_Click(objRef) {
-            //var row = objRef.parentNode.parentNode;
-            var row = document.getElementById("<%=gvAddContacts.ClientID %>");
-            //Get the reference of GridView
+           
+            var row = document.getElementById("<%=gvAddContacts.ClientID %>");           
             var GridView = row.parentNode;
-
-            //Get all input elements in Gridview
             var inputList = GridView.getElementsByTagName("input");
 
             for (var i = 0; i < inputList.length; i++) {
-                //The First element is the Header Checkbox
                 var headerCheckBox = inputList[0];
-
-                //Based on all or none checkboxes
-                //are checked check/uncheck Header Checkbox
                 var checked = true;
                 if (inputList[i].type == "checkbox" && inputList[i] != headerCheckBox) {
                     if (!inputList[i].checked) {
@@ -75,22 +45,20 @@
                     }
                 }
             }
-            headerCheckBox.checked = checked;
 
+            headerCheckBox.checked = checked;
         }
         function checkAll(objRef) {
-            //var GridView = objRef.parentNode.parentNode.parentNode;
+            
             var GridView = document.getElementById("<%=gvAddContacts.ClientID %>");
             var inputList = GridView.getElementsByTagName("input");
-            for (var i = 0; i < inputList.length; i++) {
-                //Get the Cell To find out ColumnIndex
+
+            for (var i = 0; i < inputList.length; i++) {            
                 var row = inputList[i].parentNode.parentNode;
+
                 if (inputList[i].type == "checkbox" && objRef != inputList[i]) {
+
                     if (objRef.checked) {
-                        //If the header checkbox is checked
-                        //check all checkboxes
-                        //and highlight all rows
-                       
                         inputList[i].checked = true;
                     }
                     else {                        
@@ -98,19 +66,17 @@
                     }
                 }
             }
+
         }
+
         function MouseEvents(objRef, evt) {
             var checkbox = objRef.getElementsByTagName("input")[0];           
         }
-        //-----------------
 
         function Clearuserinput1() {
-
             $('input[type=text], textarea').each(function () {
                 $(this).val('');
             });
-
-
         }
 
         function Clearuserinput() {
@@ -140,92 +106,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-   <%--  <asp:ToolkitScriptManager
-         ID="ToolkitScriptManager1" runat="server" EnablePageMethods = "true">
-     </asp:ToolkitScriptManager>--%>
           <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
         <div class="add-02">
           <h1>Choose Recipients</h1>
-          
-         <%-- <div class="col-md-12 col-sm-12 add-01 add-03" id="Filter">          
-            <h2>Filter</h2>
-            <div class="">
-            <div class="col-md-4 col-sm-4">
-              <div class="form-inline">
-                <div class="form-group">
-                  <label for="exampleInputName2">Filter:</label>
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>                
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-              <div class="form-inline">
-                <div class="form-group">
-                  <label for="exampleInputName2">Condition:</label>
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>                
-              </div>
-            </div>
-            <div class="col-md-2 col-sm-2">
-              <div class="form-inline">
-                <div class="form-group">
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>                
-              </div>
-            </div>
-            <div class="col-md-2 col-sm-2">
-              <label for="exampleInputName2"><a href="#">ADD</a></label>
-            </div>
-            </div>
-          </div>   
-
-            <div class="col-md-12 col-sm-12 add-01" id="CreateList">
-          <div class="contact-list01">
-            <h2>Create List</h2>
-            <div class="col-md-6 col-sm-6">
-                <div class="form-inline">
-              <div class="form-group">
-                <label for="exampleInputName">List Name</label>
-                <input type="text" class="form-control" id="txtUserName" runat="server" style="width:352px" placeholder="Enter List Name">
-              </div>
-                    </div>
-            </div>
-         
-              <div class="col-md-6 col-sm-6" >
-                <div class="form-inline">
-              <div class="form-group">
-                <label for="exampleInputName">Description</label>
-                 <textarea class="form-control" runat="server" name="txta11" id="txta11" rows="4" style="width: 446px; height: 50px;resize: none;" oncontextmenu="return false;" placeholder="Enter text here.."></textarea>                  
-              </div>
-                    
-                    </div>
-            </div>
-               <div class="form-btn text-center">                      
-                        <input id="Reset1" type="reset" onclick="return Clearuserinput();" value="Clear All" value="Clear All" class="btn btn-info btn-sm"/>
-                        <asp:Button ID="btnSubmit" class="btn btn-primary btn-sm" runat="server" OnClick="btnSubmit_Click" Text="Submit" />  
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label1" runat="server" Font-Size="Large" ForeColor="#006600"></asp:Label>                         
-                    </div> 
-          </div>
-          </div>   --%>   
       </div>
       <div class="">
               
@@ -409,11 +293,6 @@
 
               <RowStyle CssClass="grid-item" />
             <PagerStyle CssClass = "grid-item"  />
-                       <%--<SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
-                       <SortedAscendingCellStyle BackColor="#F7F7F7" />
-                       <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
-                       <SortedDescendingCellStyle BackColor="#E5E5E5" />
-                       <SortedDescendingHeaderStyle BackColor="#242121" />--%>
 
           </asp:GridView>
 <div class="AlphabetPager">

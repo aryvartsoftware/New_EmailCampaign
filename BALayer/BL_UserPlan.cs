@@ -26,6 +26,11 @@ namespace BALayer
             objDL_UserPlan.UserPlanDelete(UserPlanid);
         }
 
+        public List<UserPlan> GetUserPlanBasedonCompanyID(int UserPlanid1)
+        {
+            return objDL_UserPlan.GetUserPlan(UserPlanid1);
+        }
+
         public List<UserPlan> SelectUserPlanforcampid(int campid)
         {
             return objDL_UserPlan.UserPlanSelect(campid);

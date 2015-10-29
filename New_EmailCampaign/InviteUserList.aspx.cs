@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using DataAccessLayer.App_Code;
 using BALayer;
-using System.Web;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
 namespace New_EmailCampaign
@@ -62,9 +58,6 @@ namespace New_EmailCampaign
         {
             try
             {
-
-                //CheckBox chkAll = (CheckBox)gvcampaign.HeaderRow.Cells[0].FindControl("checkAll");
-                //chkAll.Checked = true;
                 string selectid = string.Empty;
                 Boolean deletestatus = false;
                 for (int i = 0; i < gvcampaign.Rows.Count; i++)
@@ -74,11 +67,11 @@ namespace New_EmailCampaign
                     {
                         CheckBox chk = (CheckBox)gvcampaign.Rows[i].Cells[0].FindControl("CheckBox1");
                         Label lblEmpID = (Label)gvcampaign.Rows[i].Cells[0].FindControl("lblEmpID");
-                        //chk.Checked = true;
+
                         if (chk.Checked)
                         {
                             DataTable dtplantype = new DataTable();
-                            
+
                             if (selectid == "")
                             {
                                 if (!selectid.Contains(lblEmpID.Text.ToString()))
@@ -106,7 +99,7 @@ namespace New_EmailCampaign
                                     dtplantype = objBL_Common.plantypedetails("PK_CampaignID", "EC_Campaign", "FK_UserID in (" + lblEmpID.Text + ")");
 
                                     if (dtplantype.Rows.Count > 0)
-                                        deletestatus = true;                                        
+                                        deletestatus = true;
                                     else
                                     {
                                         objBL_Common = new BL_Common();
@@ -116,7 +109,7 @@ namespace New_EmailCampaign
                                         objBL_Common.AccessDeletAlleCampaign("EC_UserLogin", "PK_UserID", lblEmpID.Text);
                                     }
                                 }
-                                //gvcampaign.Rows[i].Attributes.Add("style", "background-color:aqua");
+
                             }
                         }
                     }
@@ -149,16 +142,6 @@ namespace New_EmailCampaign
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("InviteUserList.aspx:gvcampaign_PageIndexChanging() - " + ex.Message);
             }
         }
-
-        //protected void gvcampaign_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
-        //{
-        //    string id;
-        //    if (e.Row.RowType == DataControlRowType.DataRow)
-        //    {
-        //        id = e.Row.Cells[0].Text;
-        //        (e.Row.Cells[4].FindControl("imgEmployeeImage") as Image).ImageUrl = "photos/" + id + ".jpg";
-        //    }
-        //}
 
     }
 }

@@ -51,7 +51,7 @@ namespace New_EmailCampaign
                         objUserDetails.FK_CompanyID = CompanyID;
                         objUserDetails.Email_id = lstInviteUser[0].Emailid;
                         txtEmail = lstInviteUser[0].Emailid;
-                        
+
                         if (lstInviteUser[0].FK_RoleID != 0)
                             objUserDetails.FK_RoleID = lstInviteUser[0].FK_RoleID;
                     }
@@ -63,30 +63,17 @@ namespace New_EmailCampaign
                     objUserDetails.CreatedOn = DateTime.Now;
                     objUserDetails.MemberSince = DateTime.Now;
                     objUserDetails.AccountActivated = false;
-
-                    objUserDetails.UserType = 1;
+                    objUserDetails.IsActive = true;
+                    objUserDetails.UserType = 0;
                     objBL_UserLoginDetails.AccessInsertUserLogin(objUserDetails);
-                    //------Sending confirmtion Email of account created to client.-----
                     string sEmailId = "sakthivel@aryvart.com";
-                    //subject
                     string sSubject = "Aryvart Email Campaign: Please verify your email address.";
-
-                    ////sending emails to client
                     string strReceiverName = "ADMIN";
                     string EncryptQry = "id=" + objCryptographicHashCode.EncryptPlainTextToCipherText(objBL_UserLoginDetails.ReturnUserLoginMaxID().ToString()) + "'";
-                    //string EncryptQry = "id=" + objBL_UserLoginDetails.ReturnUserLoginMaxID().ToString() + "'";
-
-                    //string strDetails = "<table border='1' cellspacing='0' cellpadding='0'><tr><td width='152' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;File Name:</span></td><td width='200' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;" + sFileName + ".</span></td></tr><tr><td width='152' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;Uploaded on:</span></td><td width='200' valign='middle'><span style='font-size:14px;color:#aa483c'>&nbsp;" + DateTime.Now.ToString() + "." + "</span></td></tr></table>";
-                    //string body = MailTemplate.MailCoUpldHTML(MailTemplate.GetEmailTemplate("CoUpldEmail.html").Replace("<CompanyName>", sCompanyName).Replace("<Details>", strDetails).Replace("<ReceiverName>", strReceiverName).Replace("<ClientName>", sClientName));
-                    //objMailTemplate.fnSendMailToClientForCoUpld(body, "sakthivel@aryvart.com", sSubject, sEmailId);
                     string body = MailTemplate.MailAccountActivate(EncryptQry);
                     objMailTemplate.fnSendMailToClientForCoUpld(body, txtEmail, sSubject, sEmailId);
-
-
-                    //---------End---------------------
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey1", "Clearuserinput1();", true);
 
-                    //lblerrormsg.Text = "<span style='color:#c85305;font-size:12px;'>Emailid already exist use some other emailid or </span> <a href='UserLogin.aspx' style='font-size:12px; color: #00acec;'>Log in using your credential</a>.";
                 }
 
             }

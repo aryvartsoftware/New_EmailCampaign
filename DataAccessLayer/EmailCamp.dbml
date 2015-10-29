@@ -1,24 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EmailCampaign" Class="EmailCampDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=ARYVARTDOTNET;Initial Catalog=EmailCampaign;Integrated Security=True;User ID=sa" SettingsObjectName="DataAccessLayer.Properties.Settings" SettingsPropertyName="EmailCampaignConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.EC_Campaign" Member="EC_Campaigns">
-    <Type Name="EC_Campaign">
-      <Column Name="PK_CampaignID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FK_UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CampaignName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="SchduleDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CampTimezone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="utctime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FromName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Emailid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CampaignStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="mailcontent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.EC_UserContacts" Member="EC_UserContacts">
     <Type Name="EC_UserContact">
       <Column Name="PK_ContactID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -37,6 +18,25 @@
       <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateofBirth" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EC_Campaign" Member="EC_Campaigns">
+    <Type Name="EC_Campaign">
+      <Column Name="PK_CampaignID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CampaignName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SchduleDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CampTimezone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="utctime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FromName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Emailid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CampaignStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="mailcontent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.spUserPlan_AllActions" Method="spUserPlan_AllActions">
@@ -58,6 +58,289 @@
       <Column Name="ActiveFrom" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ActiveTo" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spCampaignQueue_AllActions" Method="spCampaignQueue_AllActions">
+    <Parameter Name="PK_CampaignQueueID" Parameter="pK_CampaignQueueID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FK_CampaignID" Parameter="fK_CampaignID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SentOn" Parameter="sentOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="MailFailedContent" Parameter="mailFailedContent" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="IsMailSent" Parameter="isMailSent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isBounced" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Isdelivered" Parameter="isdelivered" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsHardBounce" Parameter="isHardBounce" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsRead" Parameter="isRead" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="ReadCount" Parameter="readCount" Type="System.Byte" DbType="TinyInt" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FK_ContactID" Parameter="fK_ContactID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="newcount" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spCampaignQueue_AllActionsResult">
+      <Column Name="PK_CampaignQueueID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SentOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MailFailedContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsMailSent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isBounced" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Isdelivered" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsHardBounce" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ReadCount" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FK_ContactID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spCompany_AllActions" Method="spCompany_AllActions">
+    <Parameter Name="PK_CompanyID" Parameter="pK_CompanyID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Company_Name" Parameter="company_Name" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email_id" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ContactNo" Parameter="contactNo" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="addressline1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="city1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="state1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="country1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spCompany_AllActionsResult">
+      <Column Name="PK_CompanyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Company_Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ContactNo" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="addressline1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="city1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="state1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="country1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spFileUpload_AllActions" Method="spFileUpload_AllActions">
+    <Parameter Name="PK_FileID" Parameter="pK_FileID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FK_UserID" Parameter="fK_UserID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FileName" Parameter="fileName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="FilePath" Parameter="filePath" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spFileUpload_AllActionsResult">
+      <Column Name="PK_FileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FilePath" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spInviteUser_AllActions" Method="spInviteUser_AllActions">
+    <Parameter Name="PK_Inviteid" Parameter="pK_Inviteid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Emailid" Parameter="emailid" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="invitedate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FK_RoleID" Parameter="fK_RoleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Message" Parameter="message" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="mailsentstatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="expired" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="ApproveStatus" Parameter="approveStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FK_CompanyID" Parameter="fK_CompanyID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="new_identity" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spInviteUser_AllActionsResult">
+      <Column Name="PK_Inviteid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Emailid" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="invitedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FK_RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="mailsentstatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="expired" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ApproveStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FK_CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spListContacts_AllActions" Method="spListContacts_AllActions">
+    <Parameter Name="PK_ContListID" Parameter="pK_ContListID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ListName" Parameter="listName" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="comments" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FK_CompanyID" Parameter="fK_CompanyID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spListContacts_AllActionsResult">
+      <Column Name="PK_ContListID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ListName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FK_CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spPlanType_AllActions" Method="spPlanType_AllActions">
+    <Parameter Name="PK_PlanID" Parameter="pK_PlanID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PlanName" Parameter="planName" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="IsSingleUser" Parameter="isSingleUser" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Planrate" Parameter="planrate" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NOC" Parameter="nOC" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AllowedMails" Parameter="allowedMails" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsActive" Parameter="isActive" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="plandate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spPlanType_AllActionsResult">
+      <Column Name="PK_PlanID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlanName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="IsSingleUser" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Planrate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllowedMails" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="plandate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spRole_AllActions" Method="spRole_AllActions">
+    <Parameter Name="PK_RoleID" Parameter="pK_RoleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FK_CompanyID" Parameter="fK_CompanyID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RoleName" Parameter="roleName" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="CampaignCreate" Parameter="campaignCreate" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="MailSend" Parameter="mailSend" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CreateUser" Parameter="createUser" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CampaignDelete" Parameter="campaignDelete" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="ViewingReports" Parameter="viewingReports" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="TemplateView" Parameter="templateView" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ListExports" Parameter="listExports" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="new_identity" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spRole_AllActionsResult">
+      <Column Name="PK_RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoleName" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="CampaignCreate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="MailSend" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateUser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CampaignDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ViewingReports" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TemplateView" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ListExports" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spScheduleMailDetails_AllActions" Method="spScheduleMailDetails_AllActions">
+    <Parameter Name="PK_ScheduleID" Parameter="pK_ScheduleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FK_ContactID" Parameter="fK_ContactID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="scheduledatetime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FK_Scheduleby" Parameter="fK_Scheduleby" Type="System.Int32" DbType="Int" />
+    <Parameter Name="QueueStatus" Parameter="queueStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FK_CampaignID" Parameter="fK_CampaignID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spScheduleMailDetails_AllActionsResult">
+      <Column Name="PK_ScheduleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="scheduledatetime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FK_Scheduleby" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QueueStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FK_CampaignID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spUserContacts_AllActions" Method="spUserContacts_AllActions">
+    <Parameter Name="PK_ContactID" Parameter="pK_ContactID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FK_UserID" Parameter="fK_UserID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ContactName" Parameter="contactName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Designation" Parameter="designation" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="Addressline1" Parameter="addressline1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="City1" Parameter="city1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="State1" Parameter="state1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Country1" Parameter="country1" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email_id" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MailContent" Parameter="mailContent" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="ContactNo" Parameter="contactNo" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="DateofBirth" Parameter="dateofBirth" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spUserContacts_AllActionsResult">
+      <Column Name="PK_ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Addressline1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Country1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MailContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ContactNo" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateofBirth" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spUserListRelation_AllActions" Method="spUserListRelation_AllActions">
+    <Parameter Name="PK_UserListID" Parameter="pK_UserListID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FK_ContactID" Parameter="fK_ContactID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FK_ContListID" Parameter="fK_ContListID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
+    <ElementType Name="spUserListRelation_AllActionsResult">
+      <Column Name="PK_UserListID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ContListID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -131,261 +414,8 @@
       <Column Name="SendNewsLetter" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.spUserListRelation_AllActions" Method="spUserListRelation_AllActions">
-    <Parameter Name="PK_UserListID" Parameter="pK_UserListID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FK_ContactID" Parameter="fK_ContactID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FK_ContListID" Parameter="fK_ContListID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spUserListRelation_AllActionsResult">
-      <Column Name="PK_UserListID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_ContListID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spUserContacts_AllActions" Method="spUserContacts_AllActions">
-    <Parameter Name="PK_ContactID" Parameter="pK_ContactID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FK_UserID" Parameter="fK_UserID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ContactName" Parameter="contactName" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Designation" Parameter="designation" Type="System.String" DbType="VarChar(30)" />
-    <Parameter Name="Addressline1" Parameter="addressline1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="City1" Parameter="city1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="State1" Parameter="state1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Country1" Parameter="country1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="email_id" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="MailContent" Parameter="mailContent" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="ContactNo" Parameter="contactNo" Type="System.String" DbType="VarChar(15)" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="DateofBirth" Parameter="dateofBirth" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spUserContacts_AllActionsResult">
-      <Column Name="PK_ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ContactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Designation" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="Addressline1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="City1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="State1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Country1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="email_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="MailContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="ContactNo" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DateofBirth" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spScheduleMailDetails_AllActions" Method="spScheduleMailDetails_AllActions">
-    <Parameter Name="PK_ScheduleID" Parameter="pK_ScheduleID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FK_ContactID" Parameter="fK_ContactID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="scheduledatetime" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="FK_Scheduleby" Parameter="fK_Scheduleby" Type="System.Int32" DbType="Int" />
-    <Parameter Name="QueueStatus" Parameter="queueStatus" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="FK_CampaignID" Parameter="fK_CampaignID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spScheduleMailDetails_AllActionsResult">
-      <Column Name="PK_ScheduleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="scheduledatetime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="FK_Scheduleby" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="QueueStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FK_CampaignID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spRole_AllActions" Method="spRole_AllActions">
-    <Parameter Name="PK_RoleID" Parameter="pK_RoleID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FK_CompanyID" Parameter="fK_CompanyID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="RoleName" Parameter="roleName" Type="System.String" DbType="VarChar(25)" />
-    <Parameter Name="CampaignCreate" Parameter="campaignCreate" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="MailSend" Parameter="mailSend" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CreateUser" Parameter="createUser" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CampaignDelete" Parameter="campaignDelete" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="ViewingReports" Parameter="viewingReports" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="TemplateView" Parameter="templateView" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="ListExports" Parameter="listExports" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spRole_AllActionsResult">
-      <Column Name="PK_RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RoleName" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="CampaignCreate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="MailSend" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreateUser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CampaignDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ViewingReports" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="TemplateView" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ListExports" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spListContacts_AllActions" Method="spListContacts_AllActions">
-    <Parameter Name="PK_ContListID" Parameter="pK_ContListID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ListName" Parameter="listName" Type="System.String" DbType="VarChar(500)" />
-    <Parameter Name="comments" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="FK_CompanyID" Parameter="fK_CompanyID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spListContacts_AllActionsResult">
-      <Column Name="PK_ContListID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ListName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="comments" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FK_CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spInviteUser_AllActions" Method="spInviteUser_AllActions">
-    <Parameter Name="PK_Inviteid" Parameter="pK_Inviteid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Emailid" Parameter="emailid" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="invitedate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="FK_RoleID" Parameter="fK_RoleID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Message" Parameter="message" Type="System.String" DbType="VarChar(500)" />
-    <Parameter Name="mailsentstatus" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="expired" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="ApproveStatus" Parameter="approveStatus" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="FK_CompanyID" Parameter="fK_CompanyID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="new_identity" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spInviteUser_AllActionsResult">
-      <Column Name="PK_Inviteid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Emailid" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="invitedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FK_RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Message" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="mailsentstatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="expired" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ApproveStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FK_CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spFileUpload_AllActions" Method="spFileUpload_AllActions">
-    <Parameter Name="PK_FileID" Parameter="pK_FileID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FK_UserID" Parameter="fK_UserID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FileName" Parameter="fileName" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="FilePath" Parameter="filePath" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spFileUpload_AllActionsResult">
-      <Column Name="PK_FileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FileName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="FilePath" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spCompany_AllActions" Method="spCompany_AllActions">
-    <Parameter Name="PK_CompanyID" Parameter="pK_CompanyID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Company_Name" Parameter="company_Name" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="email_id" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="ContactNo" Parameter="contactNo" Type="System.String" DbType="NVarChar(15)" />
-    <Parameter Name="addressline1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="city1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="state1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="country1" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spCompany_AllActionsResult">
-      <Column Name="PK_CompanyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Company_Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="email_id" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="ContactNo" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
-      <Column Name="addressline1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="city1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="state1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="country1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spCampaignQueue_AllActions" Method="spCampaignQueue_AllActions">
-    <Parameter Name="PK_CampaignQueueID" Parameter="pK_CampaignQueueID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FK_CampaignID" Parameter="fK_CampaignID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="SentOn" Parameter="sentOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="MailFailedContent" Parameter="mailFailedContent" Type="System.String" DbType="VarChar(MAX)" />
-    <Parameter Name="IsMailSent" Parameter="isMailSent" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="isBounced" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="Isdelivered" Parameter="isdelivered" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="IsHardBounce" Parameter="isHardBounce" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="IsRead" Parameter="isRead" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="ReadCount" Parameter="readCount" Type="System.Byte" DbType="TinyInt" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="FK_ContactID" Parameter="fK_ContactID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="new_identity" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spCampaignQueue_AllActionsResult">
-      <Column Name="PK_CampaignQueueID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_CampaignID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SentOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="MailFailedContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="IsMailSent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isBounced" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Isdelivered" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsHardBounce" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ReadCount" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FK_ContactID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.spCampaign_AllActions" Method="spCampaign_AllActions">
-    <Parameter Name="PK_CampaignID" Parameter="pK_CampaignID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PK_CampaignID" Parameter="pK_CampaignID" Type="System.Int64" DbType="BigInt" />
     <Parameter Name="FK_UserID" Parameter="fK_UserID" Type="System.Int32" DbType="Int" />
     <Parameter Name="CampaignName" Parameter="campaignName" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="Title" Parameter="title" Type="System.String" DbType="VarChar(50)" />
@@ -400,6 +430,9 @@
     <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="CampaignStatus" Parameter="campaignStatus" Type="System.Boolean" DbType="Bit" />
     <Parameter Name="mailcontent" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Subscribers" Parameter="subscribers" Type="System.Int32" DbType="Int" />
+    <Parameter Name="mailsent" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SentOn" Parameter="sentOn" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
     <ElementType Name="spCampaign_AllActionsResult">
       <Column Name="PK_CampaignID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -417,35 +450,6 @@
       <Column Name="Emailid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CampaignStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="mailcontent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spPlanType_AllActions" Method="spPlanType_AllActions">
-    <Parameter Name="PK_PlanID" Parameter="pK_PlanID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="PlanName" Parameter="planName" Type="System.String" DbType="VarChar(30)" />
-    <Parameter Name="IsSingleUser" Parameter="isSingleUser" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="Planrate" Parameter="planrate" Type="System.Int32" DbType="Int" />
-    <Parameter Name="NOC" Parameter="nOC" Type="System.Int32" DbType="Int" />
-    <Parameter Name="AllowedMails" Parameter="allowedMails" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IsActive" Parameter="isActive" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CreatedOn" Parameter="createdOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="UpdatedBy" Parameter="updatedBy" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UpdatedOn" Parameter="updatedOn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="plandate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="CKStatus" Parameter="cKStatus" Type="System.String" DbType="VarChar(1)" />
-    <ElementType Name="spPlanType_AllActionsResult">
-      <Column Name="PK_PlanID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="PlanName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="IsSingleUser" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Planrate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NOC" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AllowedMails" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="plandate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

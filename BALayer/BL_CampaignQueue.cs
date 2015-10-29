@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataAccessLayer;
 using DataAccessLayer.App_Code;
+using System;
 
 namespace BALayer
 {
@@ -34,6 +35,11 @@ namespace BALayer
         public List<CampaignQueue> SelectCampaignQueueforcontactid(int contactid)
         {
             return objDL_CampaignQueue.CampaignQueuebasedoncontactid(contactid);
+        }
+
+        public string SelectMailCount(int companyid, DateTime ActiveFrom, DateTime ActiveTo)
+        {
+            return objDL_CampaignQueue.SelectMailCount(companyid, ActiveFrom, ActiveTo);
         }
 
         public List<CampaignQueue> SelectCampaignQueueListbasedonid(int campid)

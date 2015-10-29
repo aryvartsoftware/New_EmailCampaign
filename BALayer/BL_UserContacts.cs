@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataAccessLayer;
 using DataAccessLayer.App_Code;
+using System.Data;
 
 
 namespace BALayer
@@ -40,11 +41,18 @@ namespace BALayer
             return objDL_UserContaxcts.UserContactsSelectforgrid(contlistid);
         }
 
-        public List<UserContacts> SelectUserContactsListforid(int FKid)
+        public DataSet SelectUserContactsListforid(int FKid, string alpha)
         {
-            return objDL_UserContaxcts.SelectUserContactsbasedonID(FKid);
+            return objDL_UserContaxcts.SelectUserContactsbasedonID(FKid, alpha);
         }
-
+        public DataSet SelectUserContactsListforidforFilter(string ContactName, string Designation, string city, string state, string country, string emailid, string contactno, int FKid, string alpha)
+        {
+            return objDL_UserContaxcts.SelectUserContactsbasedonIDFilter(ContactName, Designation, city, state, country, emailid, contactno, FKid, alpha);
+        }
+        public int SelectUserContactsListcount(int FKid)
+        {
+            return objDL_UserContaxcts.SelectUserContactsCountbasedonID(FKid);
+        }
         public void DeleteDuplicateMailid(int Contactlistid, int CreatedBy)
         {
             objDL_UserContaxcts.DeleteDuplicateEmailidUploading(Contactlistid, CreatedBy);

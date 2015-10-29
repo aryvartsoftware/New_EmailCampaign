@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using DataAccessLayer.App_Code;
 using BALayer;
 using System.Web;
@@ -42,9 +40,8 @@ namespace New_EmailCampaign
 
                 if (lstUserplantype.Count > 0)
                 {
-                    //txta1.Value = lstUserplantype[0].Message;
                     txtCampaignName.Value = lstUserplantype[0].PlanName;
-                    
+
                     if (lstUserplantype[0].IsSingleUser == true)
                         rbuserselect.SelectedValue = "1";
                     else
@@ -54,8 +51,8 @@ namespace New_EmailCampaign
                     txtPlanRate.Value = lstUserplantype[0].Planrate.ToString();
                     txtnosubscribers.Value = lstUserplantype[0].NOC.ToString();
                     txtnomails.Value = lstUserplantype[0].AllowedMails.ToString();
-                    
-                    if(lstUserplantype[0].IsActive == true)
+
+                    if (lstUserplantype[0].IsActive == true)
                         chkactive.Checked = true;
 
                 }
@@ -92,13 +89,12 @@ namespace New_EmailCampaign
                     lstUserplantype = null;
                     objUserplantype = null;
                     objBL_PlanType = null;
-                    //ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "Clearuserinput2();", true);
                 }
                 else
                 {
                     objUserplantype.PlanName = txtCampaignName.Value;
 
-                    if(Convert.ToInt32(rbuserselect.SelectedValue) == 1)
+                    if (Convert.ToInt32(rbuserselect.SelectedValue) == 1)
                         objUserplantype.IsSingleUser = true;
                     else
                         objUserplantype.IsSingleUser = false;
@@ -106,8 +102,8 @@ namespace New_EmailCampaign
                     objUserplantype.Planrate = Convert.ToInt32(txtPlanRate.Value);
                     objUserplantype.NOC = Convert.ToInt32(txtnosubscribers.Value);
                     objUserplantype.AllowedMails = Convert.ToInt32(txtnomails.Value);
-                    
-                    if(chkactive.Checked == true)
+
+                    if (chkactive.Checked == true)
                         objUserplantype.IsActive = true;
                     else
                         objUserplantype.IsActive = false;
@@ -116,10 +112,10 @@ namespace New_EmailCampaign
                     objUserplantype.CreatedOn = DateTime.Now;
                     objUserplantype.CreatedBy = Convert.ToInt32(Session["UserID"].ToString());
                     objBL_PlanType.AccessInsertUserplantype(objUserplantype);
-                    
-                    }
-                   ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "Clearuserinput2();", true);
+
                 }
+                ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "Clearuserinput2();", true);
+            }
             catch (Exception ex)
             {
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("UserPlanType.aspx:btnSubmit_Click() - " + ex.Message);

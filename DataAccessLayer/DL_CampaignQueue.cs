@@ -14,7 +14,7 @@ namespace DataAccessLayer
         EmailCampDataContext objEmailCampDataContext = new EmailCampDataContext();
         CampaignQueue objCampaignQueue = new CampaignQueue();
         List<CampaignQueue> lstCampaignQueue = new List<CampaignQueue>();
-        int? val = 0;
+        long? val = 0;
 
         /// <summary>
         /// Created By :: Sakthivel.R
@@ -28,7 +28,7 @@ namespace DataAccessLayer
             try
             {
                 objEmailCampDataContext = new EmailCampDataContext();
-                int? totrow = 0;
+                long? totrow = 0;
                 var Insert = (from cde in objEmailCampDataContext.spCampaignQueue_AllActions(objCampaignQueue.PK_CampaignQueueID, objCampaignQueue.FK_CampaignID, objCampaignQueue.SentOn, objCampaignQueue.MailFailedContent, objCampaignQueue.IsMailSent, objCampaignQueue.IsBounced, objCampaignQueue.Isdelivered, objCampaignQueue.IsHardBounce, objCampaignQueue.IsRead, objCampaignQueue.ReadCount, objCampaignQueue.CreatedBy, objCampaignQueue.CreatedOn, objCampaignQueue.UpdatedBy, objCampaignQueue.UpdatedOn, objCampaignQueue.FK_ContactID, ref totrow, "i")
                               select cde).ToList();
                 //totrow = (int)objEmailCampDataContext.spCampaignQueue_AllActions(objCampaignQueue.PK_CampaignQueueID, objCampaignQueue.FK_CampaignID, objCampaignQueue.SentOn, objCampaignQueue.MailFailedContent, objCampaignQueue.IsMailSent, objCampaignQueue.IsBounced, objCampaignQueue.Isdelivered, objCampaignQueue.IsHardBounce, objCampaignQueue.IsRead, objCampaignQueue.ReadCount, objCampaignQueue.CreatedBy, objCampaignQueue.CreatedOn, objCampaignQueue.UpdatedBy, objCampaignQueue.UpdatedOn, objCampaignQueue.FK_ContactID, ref val, "i").ReturnValue;
@@ -156,6 +156,22 @@ namespace DataAccessLayer
 
         }
 
+        #endregion
+
+        /// <summary>
+        /// Created By :: Sakthivel.R
+        /// Created On :: 24-9-2015
+        /// Comments :: Select all records for Campaign details based on uertype and companyid.
+        /// </summary>
+        #region Select_MailCount
+        public string SelectMailCount(int companyid, DateTime ActiveFrom, DateTime ActiveTo)
+        {
+            objEmailCampDataContext = new EmailCampDataContext();
+            long? totrow = 0;
+            var Select = (from cde in objEmailCampDataContext.spCampaignQueue_AllActions(companyid, null, null, null, null, null, null, null, null, null, null, ActiveFrom, null, ActiveTo, null, ref totrow, "e")
+                          select cde).ToList();
+            return totrow.ToString();
+        }
         #endregion
 
         /// <summary>

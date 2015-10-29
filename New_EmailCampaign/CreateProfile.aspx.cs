@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using DataAccessLayer.App_Code;
 using BALayer;
+using System.Globalization;
 
 namespace New_EmailCampaign
 {
@@ -23,7 +24,7 @@ namespace New_EmailCampaign
                 if (Session["UserID"] == null)
                     Response.Redirect("UserLogin.aspx");
                 else
-                {                   
+                {
                     BindRole();
                     BindUserDetail();
                 }
@@ -39,12 +40,10 @@ namespace New_EmailCampaign
                 objBL_UserLoginDetails = new BL_UserLoginDetails();
                 lstRole = new List<Role>();
                 lstRole = objBL_Role.SelectRoleall(Convert.ToInt32(Session["CompanyID"].ToString()));
-                
+
                 if (lstRole.Count > 0)
                 {
-                    
-                    //ddlrole.DataBind();
-                    foreach(var items in lstRole)
+                    foreach (var items in lstRole)
                     {
                         ddlrole.DataValueField = "PK_RoleID";
                         ddlrole.DataTextField = "RoleName";
@@ -83,7 +82,6 @@ namespace New_EmailCampaign
                         txtLastName.Value = lstUserDetails[0].LastName;
                         txtFirstName.Value = lstUserDetails[0].FirstName;
                         txtUserName.Value = lstUserDetails[0].UserName;
-                        //txtUserType.Value = lstUserDetails[0].UserType;
                         txtAddress.Value = lstUserDetails[0].Addressline1;
                         txtCity.Value = lstUserDetails[0].City1;
                         txtState.Value = lstUserDetails[0].State1;
@@ -92,8 +90,9 @@ namespace New_EmailCampaign
 
                         if (lstUserDetails[0].FK_RoleID != null)
                             ddlrole.SelectedValue = Convert.ToString(lstUserDetails[0].FK_RoleID);
+
                         if (lstUserDetails[0].DateOfBirth != null)
-                            dtScheduledatetime.Value = lstUserDetails[0].DateOfBirth.ToString();
+                            dtScheduledatetime.Value = (Convert.ToDateTime(lstUserDetails[0].DateOfBirth)).ToString("dd/MM/yyyy");
 
                         txtEmail.Value = lstUserDetails[0].Email_id;
                         txtContactNumber.Value = lstUserDetails[0].ContactNo;
@@ -101,9 +100,7 @@ namespace New_EmailCampaign
 
                         if (lstUserDetails[0].UserPhoto != null)
                         {
-                            //Server.MapPath(@"UserImage\")
                             Image1.Attributes["src"] = ResolveUrl("~/UserImage/" + lstUserDetails[0].UserPhoto);
-                            //FileUpload1.Value = lstUserDetails[0].UserPhoto;                            
                         }
 
                         objUserDetails = null;
@@ -127,22 +124,12 @@ namespace New_EmailCampaign
         {
             try
             {
-                // Check if the directory we want the image uploaded to actually exists or not
                 if (!Directory.Exists(MapPath(@"UserImage")))
-
-                    // If it doesn't then we just create it before going any further
                     Directory.CreateDirectory(MapPath(@"UserImage"));
-
-
-                // Specify the upload directory
                 string directory = Server.MapPath(@"UserImage\");
-
-                // Create a bitmap of the content of the FileUpload1 control in memory
                 Bitmap originalBMP = new Bitmap(FileUpload1.PostedFile.InputStream);
                 Bitmap newBMP = new Bitmap(originalBMP);
                 newBMP.Save(directory + photoname);
-
-                // Once finished with the bitmap objects, we deallocate them.
                 originalBMP.Dispose();
                 newBMP.Dispose();
             }
@@ -179,7 +166,8 @@ namespace New_EmailCampaign
                         objUserDetails.FK_RoleID = Convert.ToInt32(ddlrole.SelectedValue.ToString());
 
                     if (dtScheduledatetime.Value != string.Empty)
-                        objUserDetails.DateOfBirth = Convert.ToDateTime(dtScheduledatetime.Value);
+                        objUserDetails.DateOfBirth = DateTime.ParseExact(dtScheduledatetime.Value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    //Convert.ToDateTime(dtScheduledatetime.Value);
 
                     objUserDetails.Email_id = txtEmail.Value;
                     objUserDetails.ContactNo = txtContactNumber.Value;
@@ -191,7 +179,7 @@ namespace New_EmailCampaign
                     objUserDetails.CreatedOn = lstUserDetails[0].CreatedOn;
                     objUserDetails.UpdatedBy = Convert.ToInt16(Session["UserID"].ToString());
                     objUserDetails.UpdatedOn = DateTime.Now;
-                    objUserDetails.ReportID = lstUserDetails[0].ReportID;                    
+                    objUserDetails.ReportID = lstUserDetails[0].ReportID;
                     objUserDetails.TotalMailCount = lstUserDetails[0].TotalMailCount;
                     objUserDetails.TotalContactsCount = lstUserDetails[0].TotalContactsCount;
                     objUserDetails.FK_UserPlanID = lstUserDetails[0].FK_UserPlanID;
@@ -227,10 +215,11 @@ namespace New_EmailCampaign
                     objUserDetails.SendNewsLetter = lstUserDetails[0].SendNewsLetter;
 
                     objBL_UserLoginDetails.AccessUpdateUserLogin(objUserDetails);
+                    Session["UserName"] = txtFirstName.Value.Trim() + " " + txtLastName.Value.Trim();
                     objUserDetails = null;
                     objBL_UserLoginDetails = null;
                     lstUserDetails = null;
-                    
+
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey1", "alert('User profile information submitted successfully.');", true);
                 }
 

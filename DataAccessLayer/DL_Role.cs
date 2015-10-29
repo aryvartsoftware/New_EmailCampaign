@@ -10,31 +10,25 @@ namespace DataAccessLayer
         EmailCampDataContext objEmailCampDataContext = new EmailCampDataContext();
         Role objRole = new Role();
         List<Role> lstRole = new List<Role>();
-
+        int? val = 0;
         /// <summary>
         /// Created By :: Sakthivel.R
         /// Created On :: 23-3-2015
         /// Comments :: Insertion function of Role details.
         /// </summary>
         #region Insert_RoleCreation
-        public void RoleInsert(Role objRole)
-        {
-
-            try
-            {
+        public string RoleInsert(Role objRole)
+        {           
                 objEmailCampDataContext = new EmailCampDataContext();
-
-                var Insert = (from cde in objEmailCampDataContext.spRole_AllActions(objRole.PK_RoleID, objRole.FK_CompanyID, objRole.RoleName, objRole.CampaignCreate, objRole.MailSend, objRole.CreateUser, objRole.CampaignDelete, objRole.ViewingReports, objRole.TemplateView, objRole.CreatedBy, objRole.CreatedOn, objRole.UpdatedBy, objRole.UpdatedOn, objRole.ListExports, "i")
+                int? totrow = 0;
+                var Insert = (from cde in objEmailCampDataContext.spRole_AllActions(objRole.PK_RoleID, objRole.FK_CompanyID, objRole.RoleName, objRole.CampaignCreate, objRole.MailSend, objRole.CreateUser, objRole.CampaignDelete, objRole.ViewingReports, objRole.TemplateView, objRole.CreatedBy, objRole.CreatedOn, objRole.UpdatedBy, objRole.UpdatedOn, objRole.ListExports, ref totrow, "i")
                               select cde).ToList();
 
                 Insert = null;
                 objRole = null;
                 objEmailCampDataContext = null;
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
+                return totrow.ToString();
+          
         }
 
         #endregion
@@ -52,7 +46,7 @@ namespace DataAccessLayer
             {
                 objEmailCampDataContext = new EmailCampDataContext();
 
-                var Update = (from cde in objEmailCampDataContext.spRole_AllActions(objRole.PK_RoleID, objRole.FK_CompanyID, objRole.RoleName, objRole.CampaignCreate, objRole.MailSend, objRole.CreateUser, objRole.CampaignDelete, objRole.ViewingReports, objRole.TemplateView, objRole.CreatedBy, objRole.CreatedOn, objRole.UpdatedBy, objRole.UpdatedOn, objRole.ListExports, "u")
+                var Update = (from cde in objEmailCampDataContext.spRole_AllActions(objRole.PK_RoleID, objRole.FK_CompanyID, objRole.RoleName, objRole.CampaignCreate, objRole.MailSend, objRole.CreateUser, objRole.CampaignDelete, objRole.ViewingReports, objRole.TemplateView, objRole.CreatedBy, objRole.CreatedOn, objRole.UpdatedBy, objRole.UpdatedOn, objRole.ListExports, ref val, "u")
                               select cde).ToList();
 
                 Update = null;
@@ -80,7 +74,7 @@ namespace DataAccessLayer
             {
                 objEmailCampDataContext = new EmailCampDataContext();
 
-                var Delete = (from cde in objEmailCampDataContext.spRole_AllActions(Roleid, null, null, null, null, null, null, null, null, null, null, null, null, null, "d")
+                var Delete = (from cde in objEmailCampDataContext.spRole_AllActions(Roleid, null, null, null, null, null, null, null, null, null, null, null, null, null, ref val, "d")
                               select cde).ToList();
 
                 Delete = null;
@@ -107,7 +101,7 @@ namespace DataAccessLayer
             objEmailCampDataContext = new EmailCampDataContext();
             lstRole = new List<Role>();
 
-            var Select = (from cde in objEmailCampDataContext.spRole_AllActions(PK_RoleID, null, null, null, null, null, null, null, null, null, null, null, null, null, "s")
+            var Select = (from cde in objEmailCampDataContext.spRole_AllActions(PK_RoleID, null, null, null, null, null, null, null, null, null, null, null, null, null, ref val, "s")
                           select cde).ToList();
 
             if (Select.Count > 0)
@@ -155,7 +149,7 @@ namespace DataAccessLayer
             objEmailCampDataContext = new EmailCampDataContext();
             lstRole = new List<Role>();
 
-            var Select = (from cde in objEmailCampDataContext.spRole_AllActions(PK_RoleID, FK_CompanyID, null, null, null, null, null, null, null, null, null, null, null, null, "b")
+            var Select = (from cde in objEmailCampDataContext.spRole_AllActions(PK_RoleID, FK_CompanyID, null, null, null, null, null, null, null, null, null, null, null, null, ref val, "b")
                           select cde).ToList();
 
             if (Select.Count > 0)
@@ -203,7 +197,7 @@ namespace DataAccessLayer
             objEmailCampDataContext = new EmailCampDataContext();
             lstRole = new List<Role>();
 
-            var Select = (from cde in objEmailCampDataContext.spRole_AllActions(null, cmpid, null, null, null, null, null, null, null, null, null, null, null, null, "a")
+            var Select = (from cde in objEmailCampDataContext.spRole_AllActions(null, cmpid, null, null, null, null, null, null, null, null, null, null, null, null, ref val, "a")
                           select cde).ToList();
 
             if (Select.Count > 0)

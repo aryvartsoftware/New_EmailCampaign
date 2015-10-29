@@ -1,18 +1,16 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateCampign.aspx.cs" Inherits="New_EmailCampaign.CreateCampign" ValidateRequest="false"  %>
+<%@ Register TagPrefix="uc" TagName="Spinner" Src="~/Common_Menu.ascx" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
   <title>Email Campaign</title>
-  <!-- start css -->
+  
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
   <link href="css/stylesheet.css" rel="stylesheet" />
     <link href="css/colorbox.css" rel="stylesheet" />
   <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-  <!-- end css -->
 
-  <!-- start js -->
-  <%--<script src="js/jquery.min.js"></script>--%>
   <script src="js/jqueryv11.2.js"></script>
   <script src="js/bootstrap-datetimepicker.min.js"></script>
     <script src="js/jquery.akordeon.js"></script>
@@ -32,31 +30,13 @@
          });
     </script>
   <script src="js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-
-     
+  <script type="text/javascript">   
           
       $("#Collapse1").click(function () {
           $('#<%=hidAccordionIndex.ClientID %>').val("1");
           var activeIndex = parseInt($('#<%=hidAccordionIndex.ClientID %>').val("1"));
           alert(activeIndex)
-          });
- 
-    
-
-     <%-- $(function () {
-          var activeIndex = parseInt($('#<%=hidAccordionIndex.ClientID %>').val());
-          alert(activeIndex);
-          $("#buttons").akordeon({
-                autoHeight: false,
-                event: "mousedown",
-                active: activeIndex,
-                change: function (event, ui) {
-                    var index = $(this).children('h3').index(ui.newHeader);
-                    $('#<%=hidAccordionIndex.ClientID %>').val(index);
-            }
-        });
-        });--%>
+          }); 
 
       $(function () {
           $('#datetimepicker1').datetimepicker({
@@ -69,10 +49,6 @@
           $(".iframe").colorbox({ iframe: true, width: "90%", height: "90%" });
       });
 
-      //jquery function when radiobutton click 
-      //$('#RadioButtonList1 input').click(function () {
-      //    alert($('#RadioButtonList1 input').index(this));
-      //});
       function showlater() {
               $("#divsendlater").show();
           return false;
@@ -94,9 +70,9 @@
           $("#RadioButtonList1").change(function () { 
           var rad = document.getElementById('<%=RadioButtonList1.ClientID %>');
           var radio = rad.getElementsByTagName("input");
+
           for (var i = 0; i < radio.length; i++) {
               if (radio[0].checked == true) {
-                  //your Code goes here....
                   $("#divupload").show();
               }
               else if (radio[1].checked == true) {
@@ -107,7 +83,7 @@
           return false;
 
       });
-      //-----------------
+      
       function Enablevalidation()
       {
           var form = document.getElementById("form1");
@@ -142,81 +118,23 @@
       }
 
     </script>
-<!-- end css -->
+
 </head>
 
 <body>
     <form id="form1" runat="server" >
         
-     <div class="container-fluid">
-    <div class="row">
-      <div class="container">
-        <div class="row">
-          <!-- Fixed navbar -->
-          <div class="main-menu"> <!-- start menu section -->
-            <nav class="navbar navbar-default navbar-fixed-top">
-              <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">Menus</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav">
-                    <li class="active"><a href="CreateCampaignList.aspx">Campaign</a></li>
-                    
-                    <li ><a href="ContactsView.aspx">Contacts</a></li>
-                        <% if (Session["vewrpts"] != null)
-              {
-                  if (Convert.ToInt32(Session["vewrpts"].ToString()) == 1)
-                  { %> 
-                      <li><a href="CampaignReportList.aspx">Report</a></li>
-                       <%}
-              }%>
-                  </ul>
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Help</a></li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Exit <span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
-                          <li><a href="CreateProfile.aspx">Profile</a></li>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="CreateCampaignList.aspx">Campaign</a></li>
-                        <li><a href="RoleDetails.aspx">Role</a></li> 
-                        <li><a href="RoleSettings.aspx">Access Settings</a></li>
-                          <li><a href="RoleSettings.aspx">Role Access</a></li>
-                           <% if (Session["crtusr"] != null)
-              {
-                  if (Convert.ToInt32(Session["crtusr"].ToString()) == 1)
-                  { %> 
-                          <li><a href="InviteUserList.aspx">Invite User</a></li>
-                           <%}
-              }%>
-                        <li class="divider"></li>
-                        <li><a href="UserLogin.aspx">Log Out </a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-              </div>
-            </nav>
-          </div> <!-- end menu section -->          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- start content section -->
+     <uc:Spinner ID="Spinner1"
+            runat="server"
+            MinValue="1"
+            MaxValue="10" />
   <div class="container-fluid bg">
     <div class="row">
       <div class="container new_campaign">
         <div class="row">
           <h1>Campaign Email </h1>
           <h4>Provide the basic details about your email</h4>
-          <div class="col-md-12  create"> <!-- start campaign section -->
+          <div class="col-md-12  create"> 
             <div class="row">
               <div class="akordeon" id="buttons">
             <div class="akordeon-item expanded" id="Collapse1" runat="server">
@@ -242,11 +160,6 @@
                       <span id="helpBlock1" class="help-block">How do I write a good subject line? • Emoji support</span>
                     </div> 
                    
-                   <%-- <div class="form-group form-btn">
-                    
-                        <input id="Reset1" type="reset" onclick="return Clearuserinput();" value="Clear All" class="btn btn-primary" style="background-color:mediumseagreen;"/>
-                                  
-                    </div>--%>
                 </div>
               </div>
 
@@ -264,15 +177,11 @@
                       <span id="helpBlock" class="help-block">Enter your email address</span>
                     </div>
                   
-                     <%--  <div class="form-group form-btn">
-                   
-                         <asp:Button ID="btnSubmit" class="btn btn-primary" runat="server" OnClientClick="Enablevalidation();" OnClick="btnSubmit_Click" Text="Submit" />             
-                    </div>      --%>               
                 </div>
               </div> 
                       
             </div>
-          </div> <!-- start campaign section -->
+          </div>
         </div>
           <div class="akordeon-item" id="Collapse2" runat="server">
                 <div class="akordeon-item-head">
@@ -288,8 +197,7 @@
                     <div class="akordeon-item-content">
                   
                       <div class="col-md-12">
-            <%--<button type="button" class="btn btn-primary iframe" data-toggle="modal" href="createlist.aspx">Create List</button>--%>
-                          <%--<button type="button" class="btn btn-primary iframe" data-toggle="modal" href="AddContacts.aspx">Create List</button>--%>
+           
                           <a style="font-size:16px;" class="iframe" data-toggle="modal" href="AddContacts.aspx"> Choose Recipients </a>
                             <div id="Div10" class="add-contact">
 
@@ -304,10 +212,7 @@
                      style="margin-right: 0px;"
          onpageindexchanging="gvAddContacts_PageIndexChanging" AllowSorting="True" AllowPaging="True">
                         <RowStyle CssClass="GridItem gridcampitem" />
-                        <Columns>
-                           <%-- <asp:BoundField DataField="PK_ContactID" HeaderText="PK_ContactID" >
-                            <ItemStyle CssClass="hidden" />
-                              </asp:BoundField>--%>
+                        <Columns>                          
                             <asp:TemplateField HeaderText="PK_ContactID" Visible="false">
 
                         <ItemTemplate>
@@ -316,14 +221,7 @@
 
                         </ItemTemplate>
 </asp:TemplateField> 
-                            <%--<asp:TemplateField HeaderText="S.No">
-              <ItemTemplate> <%#Container.DataItemIndex + 1 %> </ItemTemplate>
-              <ControlStyle Width="2%" />
-              <FooterStyle Width="2%"/>
-              <HeaderStyle CssClass="GridHeaderStyle" Width="2%"/>
-              <ItemStyle CssClass="GridItem" Width="2%"/>
-            </asp:TemplateField>--%>
-
+                           
                             <asp:BoundField DataField="ContactName" HeaderText="Name" >
                                 <HeaderStyle CssClass="GridHeaderStyle" Width="10%"/>
                             <ControlStyle CssClass="GridItem gridcampitem" Width="10%" />
@@ -413,21 +311,16 @@
                     <b style="background-color:#ffff99;">(.html, .txt)</b>
                                       </div>
                                  <textarea runat="server" name="txta9" id="txta9" class="ckeditor" required></textarea>
-<%--                                 <asp:RadioButtonList ID="RadioButtonList2" CssClass="radio_btns input-inline btn btn-info" runat="server" RepeatDirection="Horizontal">
-    <asp:ListItem CssClass="radio_btn_label" Value="1">Send Now</asp:ListItem>
-    <asp:ListItem CssClass="radio_btn_label" Value="2">Send Later</asp:ListItem>
-                            </asp:RadioButtonList>--%>
 
                                  <asp:Button ID="Button1" class="btn btn-danger input-inline" runat="server" Style="margin-top:10px;" Text="Send Now" OnClick="Button1_Click"  />
                                  <asp:Button ID="Button2" class="btn btn-info input-inline" runat="server" Style="margin-top:10px;" Text="Send Later" OnClientClick="showlater(); return false;" OnClick="Button2_Click"  />
-                                <%-- <asp:Button ID="Button3" runat="server" Text="test" OnClick="Button3_Click" />--%>
+                                
                 </div>
                             <div class="row" id="divsendlater" style="display:none;">
                                 <div class="col-md-4">
                       <label for="exampleInputEmail1">Select Time Zone</label>  
                         <asp:DropDownList ID="ddlTimeZone" style="width:330px;" required="required" runat="server" AppendDataBoundItems="true">
-                        </asp:DropDownList> 
-                       <%--<asp:RequiredFieldValidator runat="server" ErrorMessage="*" Display="Dynamic" ControlToValidate="ddlTimeZone" ForeColor="Red" InitialValue="-- Select --" SetFocusOnError="True" ValidationGroup="vg1"></asp:RequiredFieldValidator>--%>                 
+                        </asp:DropDownList>                    
                             
                     </div>  
                     
@@ -451,10 +344,10 @@
    
                 </div>
               </div> 
- </div> <!-- collapse-->
+ </div>
               
             </div>
-          </div> <!-- start campaign section -->
+          </div> 
         </div>
       </div>       
 

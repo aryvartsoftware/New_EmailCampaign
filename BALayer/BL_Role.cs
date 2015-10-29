@@ -10,9 +10,10 @@ namespace BALayer
         Role objRole1 = new Role();
         List<Role> lstRole = new List<Role>();
 
-        public void AccessInsertRole(Role objRole1)
+        public string AccessInsertRole(Role objRole1)
         {
-            objDL_Role.RoleInsert(objRole1);            
+            string pkid = objDL_Role.RoleInsert(objRole1);
+            return pkid;
         }
 
         public void AccessUpdateRole(Role objRole1)

@@ -125,5 +125,34 @@ public string mailcontent
 }
  
 
+
+    }
+
+    public class campaignreport : Campaign
+    {
+        private int? Subscribers1;
+
+        public int? Subscribers
+        {
+            get { return Subscribers1; }
+            set { Subscribers1 = value; }
+        }
+
+        private int? mailsent1;
+
+        public int? mailsent
+        {
+            get { return mailsent1; }
+            set { mailsent1 = value; }
+        }
+
+        private DateTime? SentOn1;
+
+        public DateTime? SentOn
+        {
+            get { return SentOn1; }
+            set { SentOn1 = value; }
+        }
+
     }
 }

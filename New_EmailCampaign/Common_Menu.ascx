@@ -15,9 +15,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="#">Menus</a>
+                 <%-- <a class="navbar-brand" href="#">Menus</a>--%>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
+                     <% if (Convert.ToInt64(Session["Usertype"]) != 10)
+              {%>
                   <ul class="nav navbar-nav">
                     <li><a href="CreateCampaignList.aspx">Campaign</a></li>
                     <li><a href="ContactsView.aspx">Contacts</a></li>
@@ -30,6 +32,14 @@
                        <%}
               }%>
                   </ul>
+                    <%} else {%>
+                    <ul class="nav navbar-nav">
+                     <li><a href="UserPlanTypeDetails.aspx">Plan Type</a></li>
+                   <li><a href="UserPlanView.aspx">User Plan</a></li>
+</ul>
+                    <%}%>
+
+
                   <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Help</a></li>
                        <%--<li class="dropdown">
@@ -38,14 +48,14 @@
                           
  </ul>
                     </li>--%>
+                     <% if (Convert.ToInt64(Session["Usertype"]) != 10)
+              {%>
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Exit <span class="caret"></span></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
                           <li><a href="CreateProfile.aspx">Profile</a></li>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="CreateCampaignList.aspx">Campaign</a></li>
+                        <li><a href="Dashboard.aspx">Dashboard</a></li>                        
                         <li><a href="RoleDetails.aspx">Role</a></li> 
-                        <li><a href="RoleSettings.aspx">Access Settings</a></li>
                           <li><a href="RoleSettings.aspx">Role Access</a></li>
                            <% if (Session["crtusr"] != null)
               {
@@ -63,8 +73,21 @@
                              }
                              }
               }%>
+                          <li><a href="UserPlanView.aspx">User Plan</a></li>
                         <li class="divider"></li>
-                        <li><a href="UserLogin.aspx">Log Out </a></li>
+                        
+                      </ul>
+                    </li>
+                      <%}%>
+                    
+                       <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<asp:Literal ID="Literal1" runat="server"></asp:Literal>
+
+                           <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                         <li><a href="UserLogin.aspx">Log Out </a></li>
+
                       </ul>
                     </li>
                   </ul>

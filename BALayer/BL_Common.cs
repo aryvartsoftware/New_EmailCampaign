@@ -38,10 +38,23 @@ namespace BALayer
         {
             return objCommonQueryClass.listuserbasedoncompanyid(companyid);
         }
-
+        public DataTable DashboardBarChart(int companyid)
+        {
+            return objCommonQueryClass.listDashboardBarchart(companyid);
+        }
         public DataTable plantypedetails(string Column, string tblName, string wherecondition)
         {
             return objCommonQueryClass.listselectquery(Column, tblName, wherecondition);
+        }
+
+        public DataTable SelectColumnQuery(string Column)
+        {
+            return objCommonQueryClass.listselectqueryColumn(Column);
+        }
+
+        public List<long> SelectDashboardChart(int companyid)
+        {
+            return objCommonQueryClass.DashboardChart(companyid);
         }
     }
 }

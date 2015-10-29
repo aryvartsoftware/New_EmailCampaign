@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using DataAccessLayer.App_Code;
 using BALayer;
-using System.Web;
 
 namespace New_EmailCampaign
 {
@@ -21,11 +18,6 @@ namespace New_EmailCampaign
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (!IsPostBack)
-            {
-
-            }
-
         }
         public void InsertUserPlan()
         {
@@ -33,16 +25,16 @@ namespace New_EmailCampaign
             objBL_UserPlan = new BL_UserPlan();
             objUserPlan.FK_UserID = Convert.ToInt32(Session["UserID"].ToString());
             objUserPlan.FK_PlanID = Convert.ToInt32(Request.QueryString["PlanID"].ToString());
-            objUserPlan.ActiveFrom = DateTime.Today;
-            objUserPlan.ActiveTo = DateTime.Today.AddMonths(1);
+            objUserPlan.ActiveFrom = DateTime.Now;
+            objUserPlan.ActiveTo = DateTime.Now.AddMonths(1);
             objUserPlan.IsActive = true;
             objUserPlan.CreatedBy = Convert.ToInt32(Session["UserID"].ToString());
-            objUserPlan.CreatedOn = DateTime.Today;
+            objUserPlan.CreatedOn = DateTime.Now;
             objBL_UserPlan.AccessInsertUserPlan(objUserPlan);
             objUserPlan = null;
             objBL_UserPlan = null;
         }
-        //21-9-2015
+
         protected void Button1_Click(object sender, EventArgs e)
         {
             InsertUserPlan();

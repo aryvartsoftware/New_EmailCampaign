@@ -1,2 +1,6 @@
 9/21/2015 11:59:48 AM: ContactsView.aspx:Button3_Click() - Thread was being aborted.
 
+9/21/2015 5:31:10 PM: UserPlanSuccess.aspx:SessionSaving() - Object reference not set to an instance of an object.
+
+9/21/2015 6:47:04 PM: UserPlanSuccess.aspx:SessionSaving() - Object reference not set to an instance of an object.
+

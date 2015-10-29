@@ -23,7 +23,6 @@ namespace New_EmailCampaign
         {
             if (!IsPostBack)
             {
-                //BindCampaignListGrid();
                 ViewState["CurrentAlphabet"] = "ALL";
                 this.GenerateAlphabets();
                 this.BindGrid();
@@ -32,12 +31,6 @@ namespace New_EmailCampaign
             }
         }
 
-        #region Binding all campaign creation list in the grid
-        /// <summary>
-        /// Created By :: Sakthivel.R
-        /// Created On :: 20-5-2015
-        /// Comments :: Populating all campaign creation list in the grid.
-        /// </summary>
         public void BindCampaignListGrid()
         {
             try
@@ -54,15 +47,12 @@ namespace New_EmailCampaign
             }
         }
 
-        #endregion
+
 
         protected void btndelete_Click(object sender, EventArgs e)
         {
             try
             {
-
-                //CheckBox chkAll = (CheckBox)gvcampaign.HeaderRow.Cells[0].FindControl("checkAll");
-                //chkAll.Checked = true;
                 string selectid = string.Empty;
                 for (int i = 0; i < gvcampaign.Rows.Count; i++)
                 {
@@ -71,7 +61,7 @@ namespace New_EmailCampaign
                     {
                         CheckBox chk = (CheckBox)gvcampaign.Rows[i].Cells[0].FindControl("CheckBox1");
                         Label lblEmpID = (Label)gvcampaign.Rows[i].Cells[0].FindControl("lblThirdPartyId");
-                        //chk.Checked = true;
+
                         if (chk.Checked)
                         {
                             if (selectid == "")
@@ -83,7 +73,6 @@ namespace New_EmailCampaign
                             {
                                 if (!selectid.Contains(lblEmpID.Text.ToString()))
                                     selectid = selectid + "," + lblEmpID.Text;
-                                //gvcampaign.Rows[i].Attributes.Add("style", "background-color:aqua");
                             }
                         }
                     }
@@ -107,31 +96,15 @@ namespace New_EmailCampaign
         {
             try
             {
-                // handle event
-                //DropDownList ddpagesize = sender as DropDownList;
-                //gvcampaign.PageSize = Convert.ToInt32(ddpagesize.SelectedItem.Text);
-                //ViewState["PageSize"] = ddpagesize.SelectedItem.Text;
-                //gvcampaign.DataBind();
-
                 GridViewRow gvcampaignRow = gvcampaign.BottomPagerRow;
-                //    DropDownList ddPageSize =
-                //(DropDownList)gvcampaignRow.Cells[0].FindControl("ddPageSize");
                 DropDownList ddpagesize = sender as DropDownList;
-                //gvcampaign.PageIndex = Convert.ToInt32(ddpagesize.SelectedItem.Text);
-
-                //Popultate the GridView Control
                 DataSet myDataSet = GetViewState();
                 DataTable myDataTable = myDataSet.Tables[0];
 
                 gvcampaign.DataSource = SortDataTable(myDataTable, true);
-                //gvcampaign.PageCount = Convert.ToInt32(ddpagesize.SelectedItem.Text);
-
                 gvcampaign.PageSize = Convert.ToInt32(ddpagesize.SelectedItem.Text);
                 ViewState["PageSize"] = ddpagesize.SelectedItem.Text;
-
                 gvcampaign.DataBind();
-
-
 
             }
             catch (Exception ex)
@@ -140,76 +113,32 @@ namespace New_EmailCampaign
             }
 
         }
-
-
         protected void gvcampaign_DataBound(object sender, EventArgs e)
         {
             try
             {
-                ////Custom Paging
                 GridViewRow gvcampaignRow = gvcampaign.BottomPagerRow;
 
                 if (gvcampaignRow == null) return;
-
                 DropDownList ddCurrentPage = (DropDownList)gvcampaign.BottomPagerRow.FindControl("ddpagesize");
-
                 Label lblPageCount = (Label)gvcampaignRow.Cells[0].FindControl("lblPageCount");
                 Label label1 = (Label)gvcampaignRow.Cells[0].FindControl("Label1");
-
-                //if (ddCurrentPage != null)
-                //{
-                //    //Populate Pager
-                //    for (int i = 0; i < gvcampaign.PageCount; i++)
-                //    {
-                //        int iPageNumber = i + 1;
-                //        ListItem myListItem = new ListItem(iPageNumber.ToString());
-
-                //        if (i == gvcampaign.PageIndex)
-                //            myListItem.Selected = true;
-
-                //        ddCurrentPage.Items.Add(myListItem);
-                //    }
-                //}
-                //int totRecords = (gvcampaign.PageIndex * gvcampaign.PageSize) + gvcampaign.PageSize;
-                // Populate the Page Count
-
 
                 if (gvcampaign.Rows.Count > 0)
                 {
                     DropDownList ddPagesize = gvcampaign.BottomPagerRow.FindControl("ddPageSize") as DropDownList;
+
                     if (ViewState["PageSize"] != null)
-                    {
-
                         ddPagesize.Items.FindByText((ViewState["PageSize"].ToString())).Selected = true;
-                    }
-                    //    pager.Visible = true;
-                    //    DropDownList ddPagesize = gvcampaign.BottomPagerRow.FindControl("ddPageSize") as DropDownList;
 
-                    //    if (ViewState["PageSize"] != null)
-                    //    {
-
-                    //        ddPagesize.Items.FindByText((ViewState["PageSize"].ToString())).Selected = true;
-                    //    }
                     if (lblPageCount != null)
                     {
                         lblPageCount.Text = "<b>Page - </b>" + (gvcampaign.PageIndex + 1) + " of " + gvcampaign.PageCount.ToString();
 
-                        //label1.Text = gvcampaign.PageIndex.ToString();
-                    }
-                    //Label lblCount = gvcampaign.BottomPagerRow.FindControl("Label1") as Label;
-                    //int totRecords = (gvcampaign.PageIndex * gvcampaign.PageSize) + gvcampaign.PageSize;
-                    ////int totCustomerCount = Convert.ToInt16(ddPagesize.SelectedItem.Text);
-                    //int totCustomerCount = Convert.ToInt16(xx);
 
-                    //totRecords = totRecords > totCustomerCount ? totCustomerCount : totRecords;
-                    //lblCount.Text = ((gvcampaign.PageIndex * gvcampaign.PageSize) + 1).ToString() + " to " + Convert.ToString(totRecords) + " of " + totCustomerCount.ToString();
-                    ////    gvcampaign.BottomPagerRow.Visible = true;
+                    }
 
                 }
-                //else
-                //{
-                //    pager.Visible = false;
-                //}
             }
             catch (Exception ex)
             {
@@ -235,11 +164,7 @@ namespace New_EmailCampaign
                             sda.SelectCommand = cmd;
                             using (DataSet dt = new DataSet())
                             {
-                                //dt = null;
-
-
                                 sda.Fill(dt);
-                                //myDataSet.Tables.Add(dt);
                                 SetViewState(dt);
                                 gvcampaign.DataSource = GetViewState();
                                 gvcampaign.DataBind();
@@ -256,12 +181,10 @@ namespace New_EmailCampaign
 
         private DataSet GetViewState()
         {
-            //Gets the ViewState
             return (DataSet)ViewState["myDataSet"];
         }
         private void SetViewState(DataSet myDataSet)
         {
-            //Sets the ViewState
             ViewState["myDataSet"] = myDataSet;
         }
 
@@ -331,7 +254,6 @@ namespace New_EmailCampaign
                 DataTable myDataTable = myDataSet.Tables[0];
                 GridViewSortExpression = e.SortExpression;
 
-                //Gets the Pageindex of the GridView.
                 int iPageIndex = gvcampaign.PageIndex;
                 gvcampaign.DataSource = SortDataTable(myDataTable, false);
                 gvcampaign.DataBind();
@@ -353,7 +275,6 @@ namespace New_EmailCampaign
             }
         }
 
-        //Gets or Sets the GridView SortDirection Property
         private string GridViewSortDirection
         {
             get
@@ -365,7 +286,6 @@ namespace New_EmailCampaign
                 ViewState["SortDirection"] = value;
             }
         }
-        //Gets or Sets the GridView SortExpression Property
         private string GridViewSortExpression
         {
             get
@@ -377,8 +297,6 @@ namespace New_EmailCampaign
                 ViewState["SortExpression"] = value;
             }
         }
-
-        //Toggles between the Direction of the Sorting        
         private string GetSortDirection()
         {
             switch (GridViewSortDirection)
@@ -394,8 +312,6 @@ namespace New_EmailCampaign
             }
             return GridViewSortDirection;
         }
-
-        //Sorts the ResultSet based on the SortExpression and the Selected Column.
         protected DataView SortDataTable(DataTable myDataTable, bool isPageIndexChanging)
         {
             if (myDataTable != null)
@@ -417,17 +333,14 @@ namespace New_EmailCampaign
                 return myDataView;
             }
             else
-            {
-
                 return new DataView();
-            }
+
         }
 
         protected void Paginate(object sender, CommandEventArgs e)
         {
             try
             {
-                // Get the Current Page Selected
                 int iCurrentIndex = gvcampaign.PageIndex;
 
                 switch (e.CommandArgument.ToString().ToLower())
@@ -437,9 +350,8 @@ namespace New_EmailCampaign
                         break;
                     case "prev":
                         if (gvcampaign.PageIndex != 0)
-                        {
                             gvcampaign.PageIndex = iCurrentIndex - 1;
-                        }
+
                         break;
                     case "next":
                         gvcampaign.PageIndex = iCurrentIndex + 1;
@@ -449,7 +361,6 @@ namespace New_EmailCampaign
                         break;
                 }
 
-                //Populate the GridView Control
                 DataSet myDataSet = GetViewState();
                 DataTable myDataTable = myDataSet.Tables[0];
 
@@ -462,7 +373,7 @@ namespace New_EmailCampaign
             }
         }
 
-        //Images for |<, <<, >>, and >|
+
         protected void imgPageFirst_Command(object sender, CommandEventArgs e)
         {
             Paginate(sender, e);
@@ -556,7 +467,7 @@ namespace New_EmailCampaign
                     {
                         CheckBox chk = (CheckBox)gvcampaign.Rows[i].Cells[0].FindControl("CheckBox1");
                         Label lblEmpID = (Label)gvcampaign.Rows[i].Cells[0].FindControl("lblThirdPartyId");
-                        //chk.Checked = true;
+
                         if (chk.Checked)
                         {
                             if (selectid == "")
@@ -568,7 +479,6 @@ namespace New_EmailCampaign
                             {
                                 if (!selectid.Contains(lblEmpID.Text.ToString()))
                                     selectid = selectid + "," + lblEmpID.Text;
-                                //gvcampaign.Rows[i].Attributes.Add("style", "background-color:aqua");
                             }
                         }
                     }
@@ -581,9 +491,6 @@ namespace New_EmailCampaign
                 }
                 else
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey22", "alert('Select at least one record !');", true);
-
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "script", "<script type='text/javascript'>$( document ).ready(function() { $('#target').modal('show')});</script>", false);
-
 
             }
             catch (Exception ex)

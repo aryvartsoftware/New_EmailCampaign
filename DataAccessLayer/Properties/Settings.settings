@@ -10,5 +10,6 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=ARYVARTDOTNET;Initial Catalog=EmailCampaign;Integrated Security=True;User ID=sa</Value>
     </Setting>
+   
   </Settings>
 </SettingsFile>

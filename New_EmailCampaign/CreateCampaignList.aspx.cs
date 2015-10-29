@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using DataAccessLayer.App_Code;
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
 using BALayer;
+using System.Globalization;
 
 
 namespace New_EmailCampaign
@@ -17,57 +16,24 @@ namespace New_EmailCampaign
         BL_CreateCampaign objBL_CreateCampaign = new BL_CreateCampaign();
         List<Campaign> lstCampaign = new List<Campaign>();
 
-        BL_Common objBL_Common = new BL_Common();
-        string strConnString = ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString;
+        BL_Common objBL_Common = new BL_Common();        
         Image sortImage = new Image();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //odsCustomers myWidget = (Widget)Session["MySessionObject"];
-            //Session["widgetID"] = myWidget.ID;
             if (!IsPostBack)
             {
-                //BindCampaignListGrid();
                 ViewState["CurrentAlphabet"] = "ALL";
                 this.GenerateAlphabets();
                 this.BindGrid();
                 Session["massupdateid"] = null;
                 Session.Remove("massupdateid");
             }
-        }
-
-        #region Binding all campaign creation list in the grid
-        /// <summary>
-        /// Created By :: Sakthivel.R
-        /// Created On :: 20-5-2015
-        /// Comments :: Populating all campaign creation list in the grid.
-        /// </summary>
-        public void BindCampaignListGrid()
-        {
-            try
-            {
-                objCampaign = new Campaign();
-                if (Convert.ToInt16(Session["Usertype"].ToString()) == 1)
-                    lstCampaign = objBL_CreateCampaign.SelectCampaignListforgrid("a", Convert.ToInt32(Session["CompanyID"].ToString()));
-                else
-                    lstCampaign = objBL_CreateCampaign.SelectCampaignListforgrid("b", Convert.ToInt32(Session["UserID"].ToString()));
-                gvcampaign.DataSource = lstCampaign;
-                gvcampaign.DataBind();
-            }
-            catch (Exception ex)
-            {
-                New_EmailCampaign.App_Code.GlobalFunction.StoreLog("CreateCampaignList.aspx:BindCampaignListGrid() - " + ex.Message);
-            }
-        }
-
-        #endregion
+        }      
 
         protected void btndelete_Click(object sender, EventArgs e)
         {
             try
             {
-
-                //CheckBox chkAll = (CheckBox)gvcampaign.HeaderRow.Cells[0].FindControl("checkAll");
-                //chkAll.Checked = true;
                 string selectid = string.Empty;
                 for (int i = 0; i < gvcampaign.Rows.Count; i++)
                 {
@@ -76,7 +42,7 @@ namespace New_EmailCampaign
                     {
                         CheckBox chk = (CheckBox)gvcampaign.Rows[i].Cells[0].FindControl("CheckBox1");
                         Label lblEmpID = (Label)gvcampaign.Rows[i].Cells[0].FindControl("lblThirdPartyId");
-                        //chk.Checked = true;
+                        
                         if (chk.Checked)
                         {
                             if (selectid == "")
@@ -88,7 +54,6 @@ namespace New_EmailCampaign
                             {
                                 if (!selectid.Contains(lblEmpID.Text.ToString()))
                                     selectid = selectid + "," + lblEmpID.Text;
-                                //gvcampaign.Rows[i].Attributes.Add("style", "background-color:aqua");
                             }
                         }
                     }
@@ -112,32 +77,14 @@ namespace New_EmailCampaign
         {
             try
             {
-                // handle event
-                //DropDownList ddpagesize = sender as DropDownList;
-                //gvcampaign.PageSize = Convert.ToInt32(ddpagesize.SelectedItem.Text);
-                //ViewState["PageSize"] = ddpagesize.SelectedItem.Text;
-                //gvcampaign.DataBind();
-
                 GridViewRow gvcampaignRow = gvcampaign.BottomPagerRow;
-                //    DropDownList ddPageSize =
-                //(DropDownList)gvcampaignRow.Cells[0].FindControl("ddPageSize");
                 DropDownList ddpagesize = sender as DropDownList;
-                //gvcampaign.PageIndex = Convert.ToInt32(ddpagesize.SelectedItem.Text);
-
-                //Popultate the GridView Control
                 DataSet myDataSet = GetViewState();
                 DataTable myDataTable = myDataSet.Tables[0];
-
                 gvcampaign.DataSource = SortDataTable(myDataTable, true);
-                //gvcampaign.PageCount = Convert.ToInt32(ddpagesize.SelectedItem.Text);
-
                 gvcampaign.PageSize = Convert.ToInt32(ddpagesize.SelectedItem.Text);
                 ViewState["PageSize"] = ddpagesize.SelectedItem.Text;
-
                 gvcampaign.DataBind();
-
-
-
             }
             catch (Exception ex)
             {
@@ -146,12 +93,11 @@ namespace New_EmailCampaign
 
         }
 
-        
+
         protected void gvcampaign_DataBound(object sender, EventArgs e)
         {
             try
             {
-                ////Custom Paging
                 GridViewRow gvcampaignRow = gvcampaign.BottomPagerRow;
 
                 if (gvcampaignRow == null) return;
@@ -161,60 +107,18 @@ namespace New_EmailCampaign
                 Label lblPageCount = (Label)gvcampaignRow.Cells[0].FindControl("lblPageCount");
                 Label label1 = (Label)gvcampaignRow.Cells[0].FindControl("Label1");
 
-                //if (ddCurrentPage != null)
-                //{
-                //    //Populate Pager
-                //    for (int i = 0; i < gvcampaign.PageCount; i++)
-                //    {
-                //        int iPageNumber = i + 1;
-                //        ListItem myListItem = new ListItem(iPageNumber.ToString());
-
-                //        if (i == gvcampaign.PageIndex)
-                //            myListItem.Selected = true;
-
-                //        ddCurrentPage.Items.Add(myListItem);
-                //    }
-                //}
-                //int totRecords = (gvcampaign.PageIndex * gvcampaign.PageSize) + gvcampaign.PageSize;
-                // Populate the Page Count
-               
-
                 if (gvcampaign.Rows.Count > 0)
                 {
                     DropDownList ddPagesize = gvcampaign.BottomPagerRow.FindControl("ddPageSize") as DropDownList;
-                    if (ViewState["PageSize"] != null)
-                    {
-                        
-                        ddPagesize.Items.FindByText((ViewState["PageSize"].ToString())).Selected = true;
-                    }
-                    //    pager.Visible = true;
-                    //    DropDownList ddPagesize = gvcampaign.BottomPagerRow.FindControl("ddPageSize") as DropDownList;
 
-                    //    if (ViewState["PageSize"] != null)
-                    //    {
+                    if (ViewState["PageSize"] != null) 
+                        ddPagesize.Items.FindByText((ViewState["PageSize"].ToString())).Selected = true;                    
 
-                    //        ddPagesize.Items.FindByText((ViewState["PageSize"].ToString())).Selected = true;
-                    //    }
- if (lblPageCount != null)
-                {
-                    lblPageCount.Text = "<b>Page - </b>" + (gvcampaign.PageIndex + 1) + " of " + gvcampaign.PageCount.ToString();
-      
-                    //label1.Text = gvcampaign.PageIndex.ToString();
-                }
-                    //Label lblCount = gvcampaign.BottomPagerRow.FindControl("Label1") as Label;
-                    //int totRecords = (gvcampaign.PageIndex * gvcampaign.PageSize) + gvcampaign.PageSize;
-                    ////int totCustomerCount = Convert.ToInt16(ddPagesize.SelectedItem.Text);
-                    //int totCustomerCount = Convert.ToInt16(xx);
-
-                    //totRecords = totRecords > totCustomerCount ? totCustomerCount : totRecords;
-                    //lblCount.Text = ((gvcampaign.PageIndex * gvcampaign.PageSize) + 1).ToString() + " to " + Convert.ToString(totRecords) + " of " + totCustomerCount.ToString();
-                    ////    gvcampaign.BottomPagerRow.Visible = true;
+                    if (lblPageCount != null)                  
+                        lblPageCount.Text = "<b>Page - </b>" + (gvcampaign.PageIndex + 1) + " of " + gvcampaign.PageCount.ToString();                    
 
                 }
-                //else
-                //{
-                //    pager.Visible = false;
-                //}
+
             }
             catch (Exception ex)
             {
@@ -226,35 +130,38 @@ namespace New_EmailCampaign
         {
             try
             {
-                string qrycmd = string.Empty;
-                using (SqlConnection con = new SqlConnection(strConnString))
+                objBL_CreateCampaign = new BL_CreateCampaign();
+                string uertype = string.Empty;
+                Nullable<int> compid = null;
+                Nullable<int> Userid = null;
+
+                if (Convert.ToInt16(Session["Usertype"].ToString()) == 1)
                 {
-                    if (Convert.ToInt16(Session["Usertype"].ToString()) == 1)
-                        qrycmd = "SELECT a.* from EC_Campaign a inner join dbo.EC_UserLogin b on a.FK_UserID = b.PK_UserID where (a.CampaignName LIKE @Alphabet + '%' OR @Alphabet = 'ALL') and a.CampaignStatus <> 1 and b.FK_CompanyID =" + Convert.ToInt32(Session["CompanyID"].ToString()) + "";
-                    else
-                        qrycmd = "SELECT * from EC_Campaign where (CampaignName LIKE @Alphabet + '%' OR @Alphabet = 'ALL') and CampaignStatus <> 1 and FK_UserID = " + Convert.ToInt32(Session["UserID"].ToString()) + " ";
-
-                    using (SqlCommand cmd = new SqlCommand(qrycmd))
-                    {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
-                        {
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@Alphabet", ViewState["CurrentAlphabet"]);
-                            sda.SelectCommand = cmd;
-                            using (DataSet dt = new DataSet())
-                            {
-                                //dt = null;
-
-
-                                sda.Fill(dt);
-                                //myDataSet.Tables.Add(dt);
-                                SetViewState(dt);
-                                gvcampaign.DataSource = GetViewState();
-                                gvcampaign.DataBind();
-                            }
-                        }
-                    }
+                    uertype = "a";
+                    compid = Convert.ToInt32(Session["CompanyID"].ToString());
                 }
+                else
+                {
+                    uertype = "b";
+                    Userid = Convert.ToInt32(Session["UserID"].ToString());
+                }
+                DataSet dt = new DataSet();
+                dt = objBL_CreateCampaign.SelectCampaignListforgrid(uertype, compid, Userid, ViewState["CurrentAlphabet"].ToString());
+                SetViewState(dt);
+                if (dt.Tables[0].Rows.Count <= 0)
+                {
+                    gvcampaign.DataSource = GetViewState();
+                    gvcampaign.DataBind();
+                }
+                else
+                {
+                    gvcampaign.DataSource = GetViewState();
+                    gvcampaign.DataBind();
+                    sortImage.ImageUrl = "~/images/view_sort_descending.png";
+                    gvcampaign.HeaderRow.Cells[6].Controls.Add(sortImage);
+                    ViewState["SortDirection"] = "DESC";
+                }
+
             }
             catch (Exception ex)
             {
@@ -264,12 +171,10 @@ namespace New_EmailCampaign
 
         private DataSet GetViewState()
         {
-            //Gets the ViewState
             return (DataSet)ViewState["myDataSet"];
         }
         private void SetViewState(DataSet myDataSet)
         {
-            //Sets the ViewState
             ViewState["myDataSet"] = myDataSet;
         }
 
@@ -338,8 +243,6 @@ namespace New_EmailCampaign
                 DataSet myDataSet = GetViewState();
                 DataTable myDataTable = myDataSet.Tables[0];
                 GridViewSortExpression = e.SortExpression;
-
-                //Gets the Pageindex of the GridView.
                 int iPageIndex = gvcampaign.PageIndex;
                 gvcampaign.DataSource = SortDataTable(myDataTable, false);
                 gvcampaign.DataBind();
@@ -360,8 +263,6 @@ namespace New_EmailCampaign
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("CreateCampaignList.aspx:gvcampaign_Sorting() - " + ex.Message);
             }
         }
-
-        //Gets or Sets the GridView SortDirection Property
         private string GridViewSortDirection
         {
             get
@@ -373,7 +274,6 @@ namespace New_EmailCampaign
                 ViewState["SortDirection"] = value;
             }
         }
-        //Gets or Sets the GridView SortExpression Property
         private string GridViewSortExpression
         {
             get
@@ -384,26 +284,22 @@ namespace New_EmailCampaign
             {
                 ViewState["SortExpression"] = value;
             }
-        }
-
-        //Toggles between the Direction of the Sorting        
+        }             
         private string GetSortDirection()
         {
             switch (GridViewSortDirection)
             {
                 case "ASC":
                     GridViewSortDirection = "DESC";
-                    sortImage.ImageUrl = "~/images/view_sort_ascending.png";
+                    sortImage.ImageUrl = "~/images/view_sort_descending.png";
                     break;
                 case "DESC":
                     GridViewSortDirection = "ASC";
-                    sortImage.ImageUrl = "~/images/view_sort_descending.png";
+                    sortImage.ImageUrl = "~/images/view_sort_ascending.png";
                     break;
             }
             return GridViewSortDirection;
         }
-
-        //Sorts the ResultSet based on the SortExpression and the Selected Column.
         protected DataView SortDataTable(DataTable myDataTable, bool isPageIndexChanging)
         {
             if (myDataTable != null)
@@ -417,25 +313,19 @@ namespace New_EmailCampaign
                         GridViewSortExpression, GridViewSortDirection);
                     }
                     else
-                    {
-                        myDataView.Sort = string.Format("{0} {1}",
-                        GridViewSortExpression, GetSortDirection());
-                    }
+                        myDataView.Sort = string.Format("{0} {1}", GridViewSortExpression, GetSortDirection());
+
                 }
                 return myDataView;
             }
             else
-            {
-
                 return new DataView();
-            }
         }
 
         protected void Paginate(object sender, CommandEventArgs e)
         {
             try
             {
-                // Get the Current Page Selected
                 int iCurrentIndex = gvcampaign.PageIndex;
 
                 switch (e.CommandArgument.ToString().ToLower())
@@ -457,10 +347,8 @@ namespace New_EmailCampaign
                         break;
                 }
 
-                //Populate the GridView Control
                 DataSet myDataSet = GetViewState();
                 DataTable myDataTable = myDataSet.Tables[0];
-
                 gvcampaign.DataSource = SortDataTable(myDataTable, true);
                 gvcampaign.DataBind();
             }
@@ -469,8 +357,6 @@ namespace New_EmailCampaign
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("CreateCampaignList.aspx:Paginate() - " + ex.Message);
             }
         }
-
-        //Images for |<, <<, >>, and >|
         protected void imgPageFirst_Command(object sender, CommandEventArgs e)
         {
             Paginate(sender, e);
@@ -499,7 +385,7 @@ namespace New_EmailCampaign
         {
             try
             {
-                this.BindGrid();    
+                this.BindGrid();
                 txtCampName.Value = "";
                 txtStatus.Value = "";
                 txtTitle.Value = "";
@@ -518,40 +404,47 @@ namespace New_EmailCampaign
         {
             try
             {
-                string qrycmd = string.Empty;
-                using (SqlConnection con = new SqlConnection(strConnString))
+                objBL_CreateCampaign = new BL_CreateCampaign();
+                string uertype = string.Empty;
+                int compid = 0;
+                Nullable<DateTime> CreatedOn = null;
+                string alphabet = ViewState["CurrentAlphabet"].ToString();
+
+                if (Convert.ToInt16(Session["Usertype"].ToString()) == 1)
                 {
-                    string filter = string.Empty;
+                    uertype = "e";
+                    compid = Convert.ToInt32(Session["CompanyID"].ToString());
 
-
-                    if (Convert.ToInt16(Session["Usertype"].ToString()) == 1)
-                        qrycmd = "SELECT a.* from EC_Campaign a inner join dbo.EC_UserLogin b on a.FK_UserID = b.PK_UserID where (a.CampaignName LIKE @Alphabet + '%' OR @Alphabet = 'ALL') and b.FK_CompanyID =" + Convert.ToInt32(Session["CompanyID"].ToString()) + " and a.CampaignName like '%' + @txtCampName + '%' and a.Title like '%" + txtTitle.Value.Trim() + "%' and a.CampaignStatus <> 1 and a.FromName like '%" + txtStatus.Value.Trim() + "%'";
-                    else
-                        qrycmd = "SELECT * from EC_Campaign where (CampaignName LIKE @Alphabet + '%' OR @Alphabet = 'ALL') and FK_UserID = " + Convert.ToInt32(Session["UserID"].ToString()) + " and  CampaignName like '%' + @txtCampName + '%' and Title like '%" + txtTitle.Value.Trim() + "%' and CampaignStatus <> 1 and FromName like '%" + txtStatus.Value.Trim() + "%'";
-
-                    using (SqlCommand cmd = new SqlCommand(qrycmd))
-                    {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
-                        {
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@Alphabet", ViewState["CurrentAlphabet"]);
-                            cmd.Parameters.AddWithValue("@txtCampName", txtCampName.Value.Trim());
-                            sda.SelectCommand = cmd;
-                            using (DataSet dt = new DataSet())
-                            {
-                                //dt = null;
-
-
-                                sda.Fill(dt);
-                                //myDataSet.Tables.Add(dt);
-                                SetViewState(dt);
-                                gvcampaign.DataSource = GetViewState();
-                                gvcampaign.DataBind();
-                            }
-                        }
-                    }
+                    if (dtScheduledatetime.Value != "")
+                        CreatedOn = DateTime.ParseExact(dtScheduledatetime.Value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 }
-                collapseExample.Attributes["class"] = "collapse in";
+                else
+                {
+                    uertype = "f";
+                    compid = Convert.ToInt32(Session["UserID"].ToString());
+
+                    if (dtScheduledatetime.Value != "")
+                        CreatedOn = DateTime.ParseExact(dtScheduledatetime.Value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                }
+
+                DataSet dt = new DataSet();
+                dt = objBL_CreateCampaign.SelectCampaignListforgridBasedonfilter(uertype, compid, txtCampName.Value.Trim(), txtTitle.Value.Trim(), CreatedOn, alphabet, txtStatus.Value.Trim());
+                SetViewState(dt);
+
+                if (dt.Tables[0].Rows.Count <= 0)
+                {
+                    gvcampaign.DataSource = GetViewState();
+                    gvcampaign.DataBind();
+                }
+                else
+                {
+                    gvcampaign.DataSource = GetViewState();
+                    gvcampaign.DataBind();
+                    sortImage.ImageUrl = "~/images/view_sort_descending.png";
+                    gvcampaign.HeaderRow.Cells[6].Controls.Add(sortImage);
+                    ViewState["SortDirection"] = "DESC";
+                }
+                collapseExample.Attributes["class"] = "collapse in";                
             }
             catch (Exception ex)
             {
@@ -571,7 +464,7 @@ namespace New_EmailCampaign
                     {
                         CheckBox chk = (CheckBox)gvcampaign.Rows[i].Cells[0].FindControl("CheckBox1");
                         Label lblEmpID = (Label)gvcampaign.Rows[i].Cells[0].FindControl("lblThirdPartyId");
-                        //chk.Checked = true;
+                        
                         if (chk.Checked)
                         {
                             if (selectid == "")
@@ -583,7 +476,6 @@ namespace New_EmailCampaign
                             {
                                 if (!selectid.Contains(lblEmpID.Text.ToString()))
                                     selectid = selectid + "," + lblEmpID.Text;
-                                //gvcampaign.Rows[i].Attributes.Add("style", "background-color:aqua");
                             }
                         }
                     }
@@ -591,22 +483,17 @@ namespace New_EmailCampaign
 
                 if (selectid != "")
                 {
-                   Session["massupdateid"] = selectid;
-                   ClientScript.RegisterStartupScript(Page.GetType(), "mykey21", "ShowNewPage('MassUpdate.aspx');", true);
+                    Session["massupdateid"] = selectid;
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey21", "ShowNewPage('MassUpdate.aspx');", true);
                 }
                 else
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey22", "alert('Select at least one record !');", true);
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey22", "alert('Select at least one record !');", true);             
                 
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "script", "<script type='text/javascript'>$( document ).ready(function() { $('#target').modal('show')});</script>", false);
-                
-            
             }
             catch (Exception ex)
             {
                 New_EmailCampaign.App_Code.GlobalFunction.StoreLog("CreateCampaignList.aspx:Button3_Click() - " + ex.Message);
             }
         }
-
-
     }
 }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Net.NetworkInformation;
 using System.Net.Security;
 using System.Net.Sockets;
+using System.Data;
 
 
 namespace New_EmailCampaign
@@ -44,6 +45,7 @@ namespace New_EmailCampaign
         {
             if (!IsPostBack)
             {
+                
                 if (Session["UserID"] == null)
                     Response.Redirect("UserLogin.aspx");
                 else
@@ -231,15 +233,72 @@ namespace New_EmailCampaign
             return storeContent;
         }
 
+        public Boolean ValidateAllowedMails()
+        {
+            try
+            {
+                objBL_Common = new BL_Common();
+                DataTable dtplantype = new DataTable();
+                string[] UPtype = new string[3];
+                dtplantype = objBL_Common.plantypedetails("b.*", "dbo.EC_UserLogin a inner join EC_UserPlan b on a.PK_UserID = b.FK_UserID", "a.FK_CompanyID =" + Convert.ToInt32(Session["CompanyID"].ToString()) + " and b.IsActive = 1");
+                Boolean validstatus = false;
+
+                if (dtplantype.Rows.Count > 0)
+                {
+                    string mailcount = objBL_CampaignQueue.SelectMailCount(Convert.ToInt32(Session["CompanyID"].ToString()), Convert.ToDateTime(dtplantype.Rows[0]["ActiveFrom"].ToString()), Convert.ToDateTime(dtplantype.Rows[0]["ActiveTo"].ToString()));
+//string mailcount  = objBL_Common.IsValidUser("", "", "");
+                    if (mailcount != "")
+                    {
+                        if (Session["lstUserPlanType"] != null)
+                        {
+                            UPtype = (string[])Session["lstUserPlanType"];
+
+                            if (Session["SelectContactID"].ToString() != null)
+                            {
+                                int selectidcount = 0;
+                                if (Session["SelectContactID"].ToString().Contains(","))
+                                {
+                                    string[] arrcontactid = Session["SelectContactID"].ToString().Split(',');
+                                    selectidcount = arrcontactid.Length;
+                                }
+                                if (Convert.ToInt32(mailcount) + selectidcount >= Convert.ToInt32(UPtype[2]))
+                                {
+                                    if (Convert.ToInt32(mailcount) < Convert.ToInt32(UPtype[2]))
+                                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey66", "alert('Only " + Convert.ToInt32(Convert.ToInt32(UPtype[2]) - Convert.ToInt32(mailcount)) + " recepients are remaining from your plan to send mails!');", true);
+                                    else
+                                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey26", "alert('You cannot send mails beyond your plan, Mail quota is completed!');", true);
+
+                                    validstatus = false;
+                                }
+                                else
+                                    validstatus = true;
+                            }
+                        }
+                    }
+
+                }
+                return validstatus;
+            }
+            catch (Exception ex)
+            {
+                New_EmailCampaign.App_Code.GlobalFunction.StoreLog("CreateCampign.aspx:ValidateAllowedMails() - " + ex.Message);
+                return false;
+            }
+        }
+
         protected void btngridsubmit_Click(object sender, EventArgs e)
         {
+            Boolean AllowMail = ValidateAllowedMails();
+
+            if (AllowMail == false)
+                return;
             string CampTimezone = ddlTimeZone.SelectedValue;
             string dttime = dtScheduledatetime.Value;
             string[] dateString = dttime.Split('/');
             DateTime enter_date = Convert.ToDateTime
             (dateString[1] + "/" + dateString[0] + "/" + dateString[2]);
             DateTime indtime;
-            DateTime utcTime = enter_date.ToUniversalTime();
+            DateTime utcTime = enter_date.ToUniversalTime();            
 
             if (ddlTimeZone.SelectedIndex > 0)
             {
@@ -325,6 +384,10 @@ namespace New_EmailCampaign
         {
             try
             {
+                Boolean AllowMail = ValidateAllowedMails();
+
+                if (AllowMail == false)
+                    return;
 
                 string body = txta9.Value;
                 if (body != "")
@@ -357,7 +420,7 @@ namespace New_EmailCampaign
                         }
 
                         objMailTemplate.fnSendMailToRecipients(fromEmailID, fromPassword, body, destcc, txtTitle.Value.ToString(), tomailid, EmailID.Value.ToString().Trim(), PKID);
-                        objBL_Common.AccessUpdateAllCampaign("EC_CampaignQueue", "IsMailSent = " + 1 + ", SentOn = '" + DateTime.Now + "'", "PK_CampaignQueueID =" + Convert.ToInt32(PKID) + "");
+                        objBL_Common.AccessUpdateAllCampaign("EC_CampaignQueue", "IsMailSent = " + 1 + ", SentOn = '" + DateTime.Now + "', UpdatedBy = " + Convert.ToInt64(Session["UserID"].ToString()) + ", UpdatedOn = '" + DateTime.Now + "'", "PK_CampaignQueueID =" + Convert.ToInt32(PKID) + "");
                     }
 
                     objBL_Common = new BL_Common();
@@ -458,7 +521,7 @@ namespace New_EmailCampaign
                 //else
                 //    totalPages = ((totalEmails - mod) / NoOfEmailsPerPage) + 1;
 
-               
+
             }
             catch (Exception ex)
             {
@@ -468,4 +531,4 @@ namespace New_EmailCampaign
     }
 }
 
-    
+

@@ -247,6 +247,16 @@ input.btn.btn-info.btn-sm {
   margin-right: 20px;
 }
 /*button*/
+/* Vino */
+.part{ background:#fff; padding-bottom:40px;}
+.part2{ padding:80px 0;}
+.icons{ padding:40px 0;}
+.icons ul li{ float:left; list-style-type:none; padding: 0 0 0 17;}
+.box{ border:10px solid #ededed; border-radius:50%;}
+.box1{border-right:1px solid #ededed; padding:0 10px;}
+.try{ margin:50px 0;}
+.try a{ text-decoration:none; font-size:22px; padding:20px;}
+/* Vino */
 .new_bg label {
   font-size: 15px;
   font-weight: bold;
@@ -2246,5 +2256,6 @@ form.signin {
 .list-contact {
   float: none;
 }
-
+/* Vino */
+.box{ border:10px solid #ededed; border-radius:50%;}
 /* media */

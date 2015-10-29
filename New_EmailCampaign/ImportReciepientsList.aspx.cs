@@ -16,7 +16,8 @@ namespace New_EmailCampaign
         UserContacts objUserContacts = new UserContacts();
         BL_UserContacts objBL_UserContacts = new BL_UserContacts();
         List<UserContacts> lstUserContacts = new List<UserContacts>();
-        
+
+        BL_Common objBL_Common = new BL_Common();
         //EmailCampDataContext  objEmailCampDataContext = new EmailCampDataContext();
         
         protected void Page_Load(object sender, EventArgs e)
@@ -144,28 +145,52 @@ namespace New_EmailCampaign
 
         public void ReadDataFromExcelToDB()
         {
+            objBL_Common = new BL_Common();
             string cs = ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString;
         SqlConnection con = new SqlConnection(cs);
             try
             {
-        SqlDataAdapter da = new SqlDataAdapter();
-                con.Open();
+        
                 string path = Server.MapPath("~/FileUploadExcel/" + FileUpload1.FileName.ToString());
                 string excelread = string.Empty;
-                excelread = "INSERT INTO [dbo].[EC_UserContacts] (" + Mapcolumn() + ", FK_UserID, CreatedBy, CreatedOn) SELECT *, " + Convert.ToInt32(Session["UserID"].ToString()) + " as FK_UserID, " + Convert.ToInt32(Session["UserID"].ToString()) + " as CreatedBy, '" + DateTime.Today + "' as CreatedOn FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0; Database=" + path + "', 'SELECT * FROM [Sheet1$]');";
-                //excelread = "INSERT INTO [dbo].[EC_UserContacts] ([ContactName], [email_id], [ContactNo], [Designation], Addressline1, City1, State1, Country1, DateofBirth, CreatedBy, CreatedOn) SELECT *, " + Convert.ToInt32(Session["UserID"].ToString()) + " as FK_UserID, " + Convert.ToInt32(Session["UserID"].ToString()) + " as CreatedBy, '" + DateTime.Today + "' as CreatedOn FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0; Database=" + path + "', 'SELECT * FROM [Sheet1$]');";
+                //validation userplan (24-9-2015)
+                DataTable dtCountValidation = new DataTable();
+                dtCountValidation = objBL_Common.SelectColumnQuery("(select count(b.PK_ContactID) from dbo.EC_UserLogin a inner join dbo.EC_UserContacts b on a.PK_UserID = b.FK_UserID where a.FK_CompanyID = " + Convert.ToInt32(Session["CompanyID"].ToString()) + ")	+ (SELECT count(*)FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0; Database=" + path + "', 'SELECT * FROM [Sheet1$]')) as ccount");
+                int contactscount = 0;
+                string[] UPtype = new string[3];
 
-                da.SelectCommand = new SqlCommand(excelread, con);
-                //da.SelectCommand = new SqlCommand("select * from Addresses_Temp1",con);
-                DataTable dt = new DataTable();
-                //dt.Columns.Add("S No", typeof(int));
-                //dt.Columns.Add("Name", typeof(string));
-                //dt.Columns.Add("Email", typeof(string));
-                da.Fill(dt);
-                con.Close();
+                if (dtCountValidation.Rows.Count > 0)
+                    contactscount = Convert.ToInt32(dtCountValidation.Rows[0][0]);
+
+                if(Session["lstUserPlanType"] != null)
+                    UPtype = (string[])Session["lstUserPlanType"];
+
+                if (contactscount < Convert.ToInt32(UPtype[1]))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    con.Open();
+                    excelread = "INSERT INTO [dbo].[EC_UserContacts] (" + Mapcolumn() + ", FK_UserID, CreatedBy, CreatedOn) SELECT *, " + Convert.ToInt32(Session["UserID"].ToString()) + " as FK_UserID, " + Convert.ToInt32(Session["UserID"].ToString()) + " as CreatedBy, '" + DateTime.Now + "' as CreatedOn FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0; Database=" + path + "', 'SELECT * FROM [Sheet1$]');";
+                    //excelread = "INSERT INTO [dbo].[EC_UserContacts] ([ContactName], [email_id], [ContactNo], [Designation], Addressline1, City1, State1, Country1, DateofBirth, CreatedBy, CreatedOn) SELECT *, " + Convert.ToInt32(Session["UserID"].ToString()) + " as FK_UserID, " + Convert.ToInt32(Session["UserID"].ToString()) + " as CreatedBy, '" + DateTime.Today + "' as CreatedOn FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0; Database=" + path + "', 'SELECT * FROM [Sheet1$]');";
+
+                    da.SelectCommand = new SqlCommand(excelread, con);
+                    //da.SelectCommand = new SqlCommand("select * from Addresses_Temp1",con);
+                    DataTable dt = new DataTable();
+                    //dt.Columns.Add("S No", typeof(int));
+                    //dt.Columns.Add("Name", typeof(string));
+                    //dt.Columns.Add("Email", typeof(string));
+                    da.Fill(dt);
+                    con.Close();
+                }
+                else
+                {
+                    Label1.Text = "You cannot add more recipients beyond your plan, Totaly you can have " + Convert.ToInt32(UPtype[1]) + " Contacts !";
+                    Label1.CssClass = "alert alert-danger";
+                    if(File.Exists(path))
+                        File.Delete(path);
+                    return;
+                }
                 
-                if(File.Exists(path))
-                    File.Delete(path);
+                
 
                 excelread = string.Empty;
                 //dg.DataSource = dt;

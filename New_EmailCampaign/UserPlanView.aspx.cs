@@ -1,11 +1,7 @@
-﻿using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using System.Web.UI.WebControls;
 using System;
 using System.Collections.Generic;
 using DataAccessLayer.App_Code;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
 using BALayer;
 
 namespace New_EmailCampaign
@@ -20,9 +16,8 @@ namespace New_EmailCampaign
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {                
                 this.BindGrid();
-            }
+
         }
         private void BindGrid()
         {
@@ -44,14 +39,14 @@ namespace New_EmailCampaign
                     for (int i = 0; i < lstUserplantype.Count; i++)
                     {
                         PlanName = lstUserplantype[i].PlanName;
-                        
-                        if(lstUserplantype[i].Planrate != null)
+
+                        if (lstUserplantype[i].Planrate != null)
                             Planprice = lstUserplantype[i].Planrate.ToString();
 
                         NoSubscribers = lstUserplantype[i].NOC;
                         AllowdMails = lstUserplantype[i].AllowedMails;
-                     
-                        if(i == 0)
+
+                        if (i == 0)
                             lblUsrPlan.Text += "<li class='plan'> <ul class='planContainer'> <li class='title'><h2><span id='RepDetails_lblSubject_0'>";
                         else
                             lblUsrPlan.Text += "<li class='plan'> <ul class='planContainer'> <li class='title'><h2><span id='RepDetails_lblSubject_0'>";
@@ -60,7 +55,7 @@ namespace New_EmailCampaign
                         lblUsrPlan.Text += Planprice + " / month</span> <small>No FREE trial</small> </h1></li><li><ul class='options'><li>Number of Subscribers:<span id='RepDetails_lblnos_0'>";
                         lblUsrPlan.Text += NoSubscribers + "</span> </li><li>Allowed Mails:<span id='RepDetails_lblComment_0'>";
                         lblUsrPlan.Text += AllowdMails + "</span> </li><li>Is Single User";
-                        
+
                         if (lstUserplantype[i].IsSingleUser == true)
                             lblUsrPlan.Text += "<img id='img" + lstUserplantype[i].PK_PlanID.ToString() + "'  src='images/Tick_inside_a_circle_24(1).png' border='0' style='width:30px;height:30px;'/>";
 
@@ -69,21 +64,21 @@ namespace New_EmailCampaign
                         if (lstUserplantype[i].IsSingleUser == false)
                             lblUsrPlan.Text += "<img id='img" + lstUserplantype[i].PK_PlanID.ToString() + "'  src='images/Tick_inside_a_circle_24(1).png' border='0' style='width:30px;height:30px;'/>";
 
-                        lblUsrPlan.Text += "</li><li>Masss Email </li></ul></li><li class='button'><input name='btnCo" + i.ToString() + "' type='button' value='TRY THIS PLAN' onclick=location.href='UserPlanSuccess.aspx?PlanID=" + lstUserplantype[i].PK_PlanID + "'> </li></ul>";//<a href='#' class='btn btn-success' role='button' name='RepDetails$ctl01$email' id='RepDetails_email_0' type='submit'>TRY THIS PLAN</a>
-                        //lblUsrPlan.Text += ";
-                      
+                        lblUsrPlan.Text += "</li><li>Masss Email </li></ul></li><li class='button'><input name='btnCo" + i.ToString() + "' type='button' value='TRY THIS PLAN' ";
+                        
+                        if (Convert.ToInt64(Session["Usertype"]) != 10)
+                            lblUsrPlan.Text += "onclick=location.href='UserPlanSuccess.aspx?PlanID=" + lstUserplantype[i].PK_PlanID + "'>";
+
+                        lblUsrPlan.Text += " </li></ul>";//<a href='#' class='btn btn-success' role='button' name='RepDetails$ctl01$email' id='RepDetails_email_0' type='submit'>TRY THIS PLAN</a>
+
                         PlanName = "";
                         Planprice = "";
                         NoSubscribers = 0;
                         AllowdMails = 0;
-                   
                     }
                     lblUsrPlan.Text += "</ul></section>";
-                  
                 }
-                //    RepDetails.DataSource = lstUserplantype;
-                //RepDetails.DataBind();
-                
+
             }
             catch (Exception ex)
             {
@@ -95,18 +90,10 @@ namespace New_EmailCampaign
         {
             try
             {
-                //Get the reference of the clicked button.
                 Button button = (sender as Button);
-
-                //Get the command argument
                 string commandArgument = button.CommandArgument;
-
-                //Get the Repeater Item reference
                 RepeaterItem item = button.NamingContainer as RepeaterItem;
-
-                //Get the repeater item index
                 int index = item.ItemIndex;
-
             }
             catch (Exception ex)
             {

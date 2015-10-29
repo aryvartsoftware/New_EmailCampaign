@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -104,10 +103,8 @@ namespace New_EmailCampaign
 
                         if (lstRole.Count > 0)
                         {
-                            //if (lstRole[0].FK_CompanyID != null)
+                            
                             objRole.FK_CompanyID = lstRole[0].FK_CompanyID;
-
-                            //objRole.RoleName = lstRole[0].RoleName;
                             objRole.CampaignCreate = lstRole[0].CampaignCreate;
                             objRole.MailSend = lstRole[0].MailSend;
                             objRole.CreateUser = lstRole[0].CreateUser;
@@ -122,7 +119,6 @@ namespace New_EmailCampaign
                         }
                         objBL_Role.AccessUpdateRole(objRole);
                         txtRoleName.Value = string.Empty;
-                        //Request.QueryString.Remove("roleId");
                     }
                     else
                     {
@@ -132,9 +128,7 @@ namespace New_EmailCampaign
                         txtRoleName.Value = string.Empty;
 
                     }
-                    Bindrolegrid();
-                    //ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "Clearuserinput1();", true);
-
+                    Bindrolegrid();                   
                     msg = "1";
                     Response.Redirect("RoleDetails.aspx");
                 }
@@ -158,9 +152,8 @@ namespace New_EmailCampaign
             try
             {
                 msg = "";
-                //CheckBox chkAll = (CheckBox)gvcampaign.HeaderRow.Cells[0].FindControl("checkAll");
-                //chkAll.Checked = true;
                 string selectid = string.Empty;
+
                 for (int i = 0; i < gvcampaign.Rows.Count; i++)
                 {
 

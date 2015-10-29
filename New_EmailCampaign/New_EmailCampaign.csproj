@@ -78,11 +78,25 @@
   <ItemGroup>
     <Content Include="ActivateSuccess.aspx" />
     <Content Include="AddContacts.aspx" />
-    <Content Include="AddReciepients.aspx" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\custom-styles.css" />
+    <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\font-awesome\fonts\fontawesome-webfontba72.svg" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\custom-scripts.js" />
+    <Content Include="assets\js\custom.js" />
+    <Content Include="assets\js\dataTables\dataTables.bootstrap.css" />
+    <Content Include="assets\js\dataTables\dataTables.bootstrap.js" />
+    <Content Include="assets\js\dataTables\jquery.dataTables.js" />
+    <Content Include="assets\js\jquery-1.10.2.js" />
+    <Content Include="assets\js\jquery.metisMenu.js" />
+    <Content Include="assets\js\morris\morris-0.4.3.min.css" />
+    <Content Include="assets\js\morris\morris.js" />
+    <Content Include="assets\js\morris\raphael-2.1.0.min.js" />
     <Content Include="CampaignEdit.aspx" />
     <Content Include="CampaignReport.aspx" />
     <Content Include="CampaignReportList.aspx" />
-    <Content Include="checkmailreadcount.aspx" />
     <Content Include="ckeditor\adapters\jquery.js" />
     <Content Include="ckeditor\build-config.js" />
     <Content Include="ckeditor\ckeditor.js" />
@@ -432,7 +446,6 @@
     <Content Include="ContactsAdd.aspx" />
     <Content Include="ContactsView.aspx" />
     <Content Include="CreateCampaignList.aspx" />
-    <Content Include="createlist.aspx" />
     <Content Include="createlist.html" />
     <Content Include="CreateProfile.aspx" />
     <Content Include="css\bootstrap-datetimepicker.min.css" />
@@ -445,8 +458,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\styleindex.css" />
     <Content Include="css\stylesheet.css" />
-    <Content Include="DateTimeboot.aspx" />
-    <Content Include="ExcelColumnMapping.aspx" />
+    <Content Include="Dashboard.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -496,6 +508,15 @@
     <Content Include="images\up1.png" />
     <Content Include="images\view_sort_ascending.png" />
     <Content Include="images\view_sort_descending.png" />
+    <Content Include="img\authorize-net.png" />
+    <Content Include="img\brain-tree.png" />
+    <Content Include="img\checkout.png" />
+    <Content Include="img\form1.jpg" />
+    <Content Include="img\form2.jpg" />
+    <Content Include="img\form3.jpg" />
+    <Content Include="img\payflow.png" />
+    <Content Include="img\paypal.png" />
+    <Content Include="img\stripe.png" />
     <Content Include="ImportReciepientsList.aspx" />
     <Content Include="index.html" />
     <Content Include="InviteUserList.aspx" />
@@ -547,6 +568,14 @@
     <Content Include="ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="ckeditor\samples\sample_posteddata.php" />
     <Content Include="ckeditor\skins\moono\readme.md" />
+    <Content Include="assets\font-awesome\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="assets\font-awesome\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="assets\font-awesome\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="assets\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\fonts\glyphicons-halflings-regulard41d.eot" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -560,7 +589,6 @@
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
-    <Content Include="Default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="FreeAccountSignUp.aspx" />
     <Content Include="Global.asax" />
@@ -600,13 +628,6 @@
     <Compile Include="AddContacts.aspx.designer.cs">
       <DependentUpon>AddContacts.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AddReciepients.aspx.cs">
-      <DependentUpon>AddReciepients.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AddReciepients.aspx.designer.cs">
-      <DependentUpon>AddReciepients.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Code\GlobalFunction.cs" />
     <Compile Include="CampaignEdit.aspx.cs">
       <DependentUpon>CampaignEdit.aspx</DependentUpon>
@@ -628,13 +649,6 @@
     </Compile>
     <Compile Include="CampaignReportList.aspx.designer.cs">
       <DependentUpon>CampaignReportList.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="checkmailreadcount.aspx.cs">
-      <DependentUpon>checkmailreadcount.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="checkmailreadcount.aspx.designer.cs">
-      <DependentUpon>checkmailreadcount.aspx</DependentUpon>
     </Compile>
     <Compile Include="Common_Menu.ascx.cs">
       <DependentUpon>Common_Menu.ascx</DependentUpon>
@@ -672,13 +686,6 @@
       <DependentUpon>CreateCampign.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Code\CryptographicHashCode.cs" />
-    <Compile Include="createlist.aspx.cs">
-      <DependentUpon>createlist.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="createlist.aspx.designer.cs">
-      <DependentUpon>createlist.aspx</DependentUpon>
-    </Compile>
     <Compile Include="CreateProfile.aspx.cs">
       <DependentUpon>CreateProfile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -686,26 +693,12 @@
     <Compile Include="CreateProfile.aspx.designer.cs">
       <DependentUpon>CreateProfile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DateTimeboot.aspx.cs">
-      <DependentUpon>DateTimeboot.aspx</DependentUpon>
+    <Compile Include="Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DateTimeboot.aspx.designer.cs">
-      <DependentUpon>DateTimeboot.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ExcelColumnMapping.aspx.cs">
-      <DependentUpon>ExcelColumnMapping.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ExcelColumnMapping.aspx.designer.cs">
-      <DependentUpon>ExcelColumnMapping.aspx</DependentUpon>
+    <Compile Include="Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
@@ -834,6 +827,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\img\" />
     <Folder Include="bin\" />
     <Folder Include="ErrorLog\" />
     <Folder Include="Models\" />

@@ -183,12 +183,12 @@ namespace DataAccessLayer
         /// Comments :: Select records based on ID for UserContacts details.
         /// </summary>
         #region Select_Records_BasedonID_UserContacts
-        public List<UserContacts> SelectUserContactsbasedonID(int FKid)
+        public DataSet SelectUserContactsbasedonID(int FKid, string alpha)
         {
             objEmailCampDataContext = new EmailCampDataContext();
             lstUserContacts = new List<UserContacts>();
 
-            var Select = (from cde in objEmailCampDataContext.spUserContacts_AllActions(null, FKid, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "a")
+            var Select = (from cde in objEmailCampDataContext.spUserContacts_AllActions(null, FKid, null, null, null, null, null, null, alpha, null, null, null, null, null, null, null, "a")
                           select cde).ToList();
 
             if (Select.Count > 0)
@@ -212,29 +212,96 @@ namespace DataAccessLayer
                     objUserContacts.Country1 = item.Country1;
                     objUserContacts.Designation = item.Designation;
                     objUserContacts.MailContent = item.MailContent;
-
-                    //string hh = item.DateofBirth.ToString();
-                    //string[] dateString = hh.Split('/');
-                    //DateTime enter_date;
-                    //if (DateTime.TryParseExact(item.DateofBirth.ToString(), "dddd, MMMM dd, yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out enter_date))
-                    //{
-                        // If this returns true, your date was in the proper format and will be stored in dob
                     objUserContacts.DateofBirth = item.DateofBirth ;
-                    //}
-                    //string hh = item.DateofBirth.ToString();
-                    //objUserContacts.DateofBirth = DateTime.ParseExact(item.DateofBirth.ToString(), "yyyy/MM/DD", CultureInfo.InvariantCulture);
-                    //DateTime dt = DateTime.ParseExact(item.DateofBirth.ToString().Trim(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-                    //DateTime dt = DateTime.ParseExact(item.DateofBirth.ToString(), "YYYY-MM-DD", CultureInfo.InvariantCulture);
-                    //objUserContacts.DateofBirth = DateTime.ParseExact(item.DateofBirth.ToString(), "M/d/yyyy", null);
-                    //(dateVal.ToString("yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat));
-                    //objUserContacts.DateofBirth = enter_date;
+                    lstUserContacts.Add(objUserContacts);
+                }
+            }
+            objEmailCampDataContext = null;
+            objUserContacts= null;
+            DataSet converted = new DataSet();
+
+            if (lstUserContacts.Count > 0)
+            {
+                converted.Tables.Add(ListToDataSet.newTable(lstUserContacts));
+                return converted;
+            }
+            else
+            {
+                converted.Tables.Add(ListToDataSet.newTableColumnAlone(lstUserContacts));
+                return converted;
+            }
+
+        }
+
+        #endregion
+
+        #region Select_Records_BasedonID_UserContacts_Filter
+        public DataSet SelectUserContactsbasedonIDFilter(string ContactName, string Designation, string city, string state, string country, string emailid, string contactno, int FKid, string alpha)
+        {
+            objEmailCampDataContext = new EmailCampDataContext();
+            lstUserContacts = new List<UserContacts>();
+
+            var Select = (from cde in objEmailCampDataContext.spUserContacts_AllActions(null, null, ContactName, Designation, alpha, city, state, country, emailid, null, contactno, FKid, null, null, null, null, "e")
+                          select cde).ToList();
+
+            if (Select.Count > 0)
+            {
+                lstUserContacts = new List<UserContacts>();
+                foreach (var item in Select)
+                {
+                    objUserContacts = new UserContacts();
+                    objUserContacts.Addressline1 = Convert.ToString(item.Addressline1);
+                    objUserContacts.City1 = Convert.ToString(item.City1);
+                    objUserContacts.CreatedBy = item.CreatedBy;
+                    objUserContacts.CreatedOn = item.CreatedOn;
+                    objUserContacts.UpdatedBy = item.UpdatedBy;
+                    objUserContacts.UpdatedOn = item.UpdatedOn;
+                    objUserContacts.Email_id = item.email_id;
+                    objUserContacts.FK_UserID = item.FK_UserID;
+                    objUserContacts.ContactName = item.ContactName;
+                    objUserContacts.PK_ContactID = Convert.ToInt16(item.PK_ContactID.ToString());
+                    objUserContacts.State1 = item.State1;
+                    objUserContacts.ContactNo = item.ContactNo;
+                    objUserContacts.Country1 = item.Country1;
+                    objUserContacts.Designation = item.Designation;
+                    objUserContacts.MailContent = item.MailContent;
+                    objUserContacts.DateofBirth = item.DateofBirth;
                     lstUserContacts.Add(objUserContacts);
                 }
             }
             objEmailCampDataContext = null;
             objUserContacts = null;
-            return lstUserContacts;
+            DataSet converted = new DataSet();
 
+            if (lstUserContacts.Count > 0)
+            {
+                converted.Tables.Add(ListToDataSet.newTable(lstUserContacts));
+                return converted;
+            }
+            else
+            {
+                converted.Tables.Add(ListToDataSet.newTableColumnAlone(lstUserContacts));
+                return converted;
+            }
+
+        }
+
+        #endregion
+
+        #region Select_RecordsCount_BasedonID_UserContacts
+        public int SelectUserContactsCountbasedonID(int FKid)
+        {
+            objEmailCampDataContext = new EmailCampDataContext();            
+
+            var Select = (from cde in objEmailCampDataContext.spUserContacts_AllActions(null, FKid, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "a")
+                          select cde).ToList();
+            int countrec = 0;
+
+            if (Select.Count > 0)            
+                countrec = Select.Count;               
+           
+            objEmailCampDataContext = null;            
+            return countrec;
         }
 
         #endregion

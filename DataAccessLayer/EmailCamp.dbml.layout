@@ -2,16 +2,16 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="EmailCamp">
   <DataContextMoniker Name="/EmailCampDataContext" />
   <nestedChildShapes>
-    <classShape Id="492e40c3-0e38-4616-8fef-0b150dc348e3" absoluteBounds="4.375, 1.375, 2, 3.6939111328124996">
-      <DataClassMoniker Name="/EmailCampDataContext/EC_Campaign" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a3b40376-7e71-4b3b-98ce-fe08319a444a" absoluteBounds="4.39, 1.835, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="47a998a9-dbb1-4ea1-97bb-0ec30f05b185" absoluteBounds="1.875, 1, 2, 3.8862125651041666">
+    <classShape Id="924e29db-6913-4a0b-80b7-43bb1ec50e60" absoluteBounds="0.75, 0.75, 2, 3.8862125651041666">
       <DataClassMoniker Name="/EmailCampDataContext/EC_UserContact" />
       <nestedChildShapes>
-        <elementListCompartment Id="8fce4117-665d-4fc7-801a-8d83d983d3a2" absoluteBounds="1.8900000000000001, 1.46, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="35881abe-8b5e-4e8b-9ceb-6f7e4bb4bad2" absoluteBounds="0.765, 1.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="398e35e7-7eef-486b-965c-052d454ff8e2" absoluteBounds="3.75, 1.25, 2, 3.6939111328124996">
+      <DataClassMoniker Name="/EmailCampDataContext/EC_Campaign" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e0e03a65-b23b-4701-999f-8028e380c7da" absoluteBounds="3.765, 1.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

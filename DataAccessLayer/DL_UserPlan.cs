@@ -133,6 +133,50 @@ namespace DataAccessLayer
         }
 
         #endregion
+
+        /// <summary>
+        /// Created By :: Sakthivel.R
+        /// Created On :: 15-9-2015
+        /// Comments :: Select all records for UserPlan details.
+        /// </summary>
+        #region Get_UserPlan
+        public List<UserPlan> GetUserPlan(int PK_UserPlanID)
+        {
+            objEmailCampDataContext = new EmailCampDataContext();
+            lstUserPlan = new List<UserPlan>();
+
+            var Select = (from cde in objEmailCampDataContext.spUserPlan_AllActions(null, null, PK_UserPlanID, null, null, true, null, null, null, null, "b")
+                          select cde).ToList();
+
+            if (Select.Count > 0)
+            {
+                lstUserPlan = new List<UserPlan>();
+                foreach (var item in Select)
+                {
+                    objUserPlan = new UserPlan();
+                    objUserPlan.ActiveFrom = item.ActiveFrom;
+                    objUserPlan.ActiveTo = item.ActiveTo;
+
+                    if (item.FK_PlanID != null)
+                        objUserPlan.FK_PlanID = Convert.ToInt32(item.FK_PlanID);
+
+                    objUserPlan.FK_UserID = item.FK_UserID;
+                    objUserPlan.IsActive = item.IsActive;
+                    objUserPlan.PK_UserPlanID = item.PK_UserPlanID;
+                    objUserPlan.CreatedOn = item.CreatedOn;
+                    objUserPlan.CreatedBy = item.CreatedBy;
+                    objUserPlan.UpdatedBy = item.UpdatedBy;
+                    objUserPlan.UpdatedOn = item.UpdatedOn;
+                    lstUserPlan.Add(objUserPlan);
+                }
+            }
+            objEmailCampDataContext = null;
+            objUserPlan = null;
+            return lstUserPlan;
+
+        }
+
+        #endregion
         
         /// <summary>
         /// Created By :: Sakthivel.R

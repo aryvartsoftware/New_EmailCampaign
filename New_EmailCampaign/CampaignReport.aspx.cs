@@ -32,14 +32,14 @@ namespace New_EmailCampaign
                 {
                     if (Request.QueryString["CamprptId"] != null)
                     {
-                        Chilkitmail();
+                        //Chilkitmail();
                         GetReport();
-                        int unbnd = Convert.ToInt32(lblSent.Text) - (Convert.ToInt32(lblhardbounce.Text) + Convert.ToInt32(lblsoftbounce.Text));
-                        int hardbouncepercent = (Convert.ToInt32(lblhardbounce.Text) / Convert.ToInt32(lblSent.Text)) * 100;
-                        int softbouncepercent = (Convert.ToInt32(lblsoftbounce.Text) / Convert.ToInt32(lblSent.Text)) * 100;
-                        int unbouncepercent = (unbnd / Convert.ToInt32(lblSent.Text)) * 100;
-                        btn.Attributes.Add("onclick", "chartshow("+ hardbouncepercent +", "+ softbouncepercent +", "+ unbouncepercent +");");
-                        //btn.Attributes.Add("onclick", "chartshow();");
+                        //int unbnd = Convert.ToInt32(lblSent.Text) - (Convert.ToInt32(lblhardbounce.Text) + Convert.ToInt32(lblsoftbounce.Text));
+                        //int hardbouncepercent = (Convert.ToInt32(lblhardbounce.Text) / Convert.ToInt32(lblSent.Text)) * 100;
+                        //int softbouncepercent = (Convert.ToInt32(lblsoftbounce.Text) / Convert.ToInt32(lblSent.Text)) * 100;
+                        //int unbouncepercent = (unbnd / Convert.ToInt32(lblSent.Text)) * 100;
+                        //btn.Attributes.Add("onclick", "chartshow("+ hardbouncepercent +", "+ softbouncepercent +", "+ unbouncepercent +");");
+                        ////btn.Attributes.Add("onclick", "chartshow();");
                     }
                 }               
 
